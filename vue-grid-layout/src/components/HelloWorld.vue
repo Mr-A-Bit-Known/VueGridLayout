@@ -6,7 +6,11 @@
       ></el-header>
       <el-main class="Main" :style="{ height: this.screenHeight + 'px' }">
         <div class="boxWrapper">
-          <div class="register_login_box"></div>
+          <div class="register_login_box">
+            <div>
+              <h1>用户注册登录界面</h1>
+            </div>
+          </div>
         </div>
       </el-main>
     </el-container>
@@ -73,8 +77,20 @@ export default {
   align-items: center;
 }
 .register_login_box {
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
   background-color: #f6f0fb;
+  opacity: 0.8;
+  -webkit-box-shadow: rgb(7, 216, 223) 0px 0px 10px;
+  -moz-box-shadow: rgb(7, 216, 223) 0px 0px 10px;
+  box-shadow: rgb(7, 216, 223) 0px 0px 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.register_login_box h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 30%;
 }
 </style>

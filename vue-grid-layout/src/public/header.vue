@@ -1,19 +1,37 @@
 <template>
   <div class="headerWrapper">
-    <div class="fontWrapper">忽如一夜春风来,千树万树梨花开...</div>
-    <div class="dateWrapper">{{ this.nowDate }}</div>
+    <div class="textWrapper">
+      <div class="fontWrapper">忽如一夜春风来,千树万树梨花开...</div>
+    </div>
+    <div class="clockWrapper">
+      <div class="dogTips" v-if="this.pictureBlock" @click="showTimeStamp()">
+        <div>
+          <img src="../../static/史努比.png" alt="" srcset="" />
+        </div>
+        <div class="textCenter">点我看时间哦...</div>
+      </div>
+      <div class="dateWrapper" v-if="this.showOrBlock">{{ this.nowDate }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   // 页面创建，获取当前时间...
-  created() {
-    setInterval(this.getNowDate, 1000);
+  mounted() {
+    this.timer = setInterval(() => {
+      this.getNowDate();
+    }, 1000);
   },
   data() {
     return {
       nowDate: "",
+      // 设置计时器;
+      timer: null,
+      // 是否显示时间
+      showOrBlock: false,
+      // 图片显示
+      pictureBlock: true,
     };
   },
   methods: {
@@ -22,14 +40,45 @@ export default {
       let myDate = new Date();
       this.nowDate = myDate.toLocaleString();
     },
+    // 显示时间
+    showTimeStamp() {
+      this.showOrBlock = true;
+      this.pictureBlock = false;
+    },
+  },
+  beforeDestroy() {
+    // 清除计时器
+    clearInterval(this.timer);
+    this.timer = null;
   },
 };
 </script>
 
 <style scoped>
 .headerWrapper {
+  width: 90%;
   font-size: 15px;
   font-weight: bold;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fontWrapper {
+  font-size: 16px;
+  font-weight: bold;
+}
+.dateWrapper {
+  font-size: 16px;
+  font-weight: bold;
+}
+.dogTips {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+}
+.textCenter {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
 }
 </style>
