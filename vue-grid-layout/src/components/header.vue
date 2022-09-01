@@ -32,6 +32,8 @@ export default {
       showOrBlock: false,
       // 图片显示
       pictureBlock: true,
+      // 第二个计时器
+      timerSecond: null,
     };
   },
   methods: {
@@ -44,12 +46,18 @@ export default {
     showTimeStamp() {
       this.showOrBlock = true;
       this.pictureBlock = false;
+      this.timerSecond = setInterval(() => {
+        this.pictureBlock = true;
+        this.showOrBlock = false;
+      }, 6000);
     },
   },
   beforeDestroy() {
     // 清除计时器
     clearInterval(this.timer);
+    clearInterval(this.timerSecond);
     this.timer = null;
+    this.timerSecond = null;
   },
 };
 </script>
