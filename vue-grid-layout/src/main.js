@@ -13,8 +13,8 @@ import '../src/javascript/index.css';
 Vue.use(ElementUI);
 
 // 全局组件
-import Header from '../src/public/header.vue';
-import Footer from '../src/public/footer.vue';
+import Header from '../src/components/header.vue';
+import Footer from '../src/components/footer.vue';
 
 Vue.component('Header', Header);
 Vue.component('Footer', Footer);
