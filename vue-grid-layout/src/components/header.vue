@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  // 页面创建，获取当前时间...
   mounted() {
     this.timer = setInterval(() => {
       this.getNowDate();
@@ -28,12 +27,12 @@ export default {
       nowDate: "",
       // 设置计时器;
       timer: null,
+      // 第二个计时器
+      timerSecond: null,
       // 是否显示时间
       showOrBlock: false,
       // 图片显示
       pictureBlock: true,
-      // 第二个计时器
-      timerSecond: null,
     };
   },
   methods: {
@@ -46,17 +45,17 @@ export default {
     showTimeStamp() {
       this.showOrBlock = true;
       this.pictureBlock = false;
-      this.timerSecond = setInterval(() => {
-        this.pictureBlock = true;
+      this.timerSecond = setTimeout(() => {
         this.showOrBlock = false;
-      }, 6000);
+        this.pictureBlock = true;
+      }, 5000);
     },
   },
   beforeDestroy() {
     // 清除计时器
     clearInterval(this.timer);
-    clearInterval(this.timerSecond);
     this.timer = null;
+    clearTimeout(this.timerSecond);
     this.timerSecond = null;
   },
 };
@@ -64,7 +63,7 @@ export default {
 
 <style scoped>
 .headerWrapper {
-  width: 90%;
+  width: 100%;
   font-size: 15px;
   font-weight: bold;
   display: flex;
@@ -73,6 +72,7 @@ export default {
 }
 .fontWrapper {
   font-size: 16px;
+  color: black;
   font-weight: bold;
 }
 .dateWrapper {
@@ -88,5 +88,6 @@ export default {
   display: flex;
   align-items: center;
   font-size: 16px;
+  color: black;
 }
 </style>
