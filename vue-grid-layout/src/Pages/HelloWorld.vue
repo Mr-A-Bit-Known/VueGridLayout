@@ -44,10 +44,10 @@
                   >
                   <div class="selection">
                     <div class="registerAccount">
-                      <el-link>没有账号?立即注册</el-link>
+                      <el-link @click="registerAccountFun()">没有账号?立即注册</el-link>
                     </div>
                     <div class="forgetPassword">
-                      <el-link>忘记密码?找回密码</el-link>
+                      <el-link @click="passwordGetBack()">忘记密码?找回密码</el-link>
                     </div>
                   </div>
                 </el-form>
@@ -89,6 +89,14 @@ export default {
     submit() {
       alert("Success...");
     },
+    // 注册账号
+    registerAccountFun() {
+      alert("接口还没做哦...");
+    },
+    // 找回密码
+    passwordGetBack() {
+      alert("巧了,接口也没做哦...");
+    }
   },
   mounted() {
     this.getViewHeight();
