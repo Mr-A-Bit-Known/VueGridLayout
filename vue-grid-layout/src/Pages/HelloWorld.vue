@@ -14,25 +14,42 @@
                   label-width="0px"
                   class="login_form"
                 >
-                  <div class="login_title">用户登陆注册界面</div>
+                  <div class="login_title">用户登录注册界面</div>
                   <el-form-item class="login_username">
                     <el-input
                       v-model="userInfoForm.username"
+                      placeholder="请输入用户名"
                       prefix-icon="el-icon-user"
+                      clearable
                     ></el-input>
                   </el-form-item>
                   <el-form-item class="login_password">
                     <el-input
                       v-model="userInfoForm.password"
+                      placeholder="请输入密码"
                       type="password"
                       prefix-icon="el-icon-lock"
+                      clearable
                     ></el-input>
                   </el-form-item>
-                  <el-form-item class="buttons">
-                    <el-button class="login_button" type="primary"
-                      >登录</el-button
-                    >
-                  </el-form-item>
+                  <el-form-item>
+                    <div>
+                      <el-button
+                        class="login_button"
+                        type="primary"
+                        @click="submit()"
+                        >登录</el-button
+                      >
+                    </div></el-form-item
+                  >
+                  <div class="selection">
+                    <div class="registerAccount">
+                      <el-link>没有账号?立即注册</el-link>
+                    </div>
+                    <div class="forgetPassword">
+                      <el-link>忘记密码?找回密码</el-link>
+                    </div>
+                  </div>
                 </el-form>
               </div>
             </div>
@@ -62,10 +79,15 @@ export default {
     };
   },
   methods: {
+    // 过去屏幕高度信息
     getViewHeight() {
       const screenHeight =
         this.$getViewSize().height - (this.headerHeight + this.footerHeight);
       this.screenHeight = screenHeight;
+    },
+    // 表单提交
+    submit() {
+      alert("Success...");
     },
   },
   mounted() {
@@ -126,19 +148,20 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: black;
-  margin-top: 18%;
+  margin-top: 16%;
 }
 .login_form .login_username {
   width: 300px;
-  margin-top: 12%;
+  margin-top: 10%;
 }
 .login_form .login_password {
+  margin-top: 3%;
   width: 300px;
 }
-.login_form .login_button {
+.login_button {
+  margin-top: 3%;
   width: 300px;
-  background-color: rgb(255, 68, 0);
-  color: #f6f0fb;
+  color: #fff !important;
 }
 .login_container {
   height: 100%;
@@ -146,5 +169,10 @@ export default {
 .login_box {
   width: 340px;
   height: 320px;
+}
+.selection {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
