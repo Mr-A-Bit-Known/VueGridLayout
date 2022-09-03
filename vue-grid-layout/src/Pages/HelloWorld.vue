@@ -44,10 +44,14 @@
                   >
                   <div class="selection">
                     <div class="registerAccount">
-                      <el-link @click="registerAccountFun()">没有账号?立即注册</el-link>
+                      <el-link @click="registerAccountFun()"
+                        >没有账号?立即注册</el-link
+                      >
                     </div>
                     <div class="forgetPassword">
-                      <el-link @click="passwordGetBack()">忘记密码?找回密码</el-link>
+                      <el-link @click="passwordGetBack()"
+                        >忘记密码?找回密码</el-link
+                      >
                     </div>
                   </div>
                 </el-form>
@@ -79,7 +83,7 @@ export default {
     };
   },
   methods: {
-    // 过去屏幕高度信息
+    // 获取屏幕高度信息
     getViewHeight() {
       const screenHeight =
         this.$getViewSize().height - (this.headerHeight + this.footerHeight);
@@ -91,12 +95,12 @@ export default {
     },
     // 注册账号
     registerAccountFun() {
-      alert("接口还没做哦...");
+      this.$router.push({ path: "/Pages/register" });
     },
     // 找回密码
     passwordGetBack() {
       alert("巧了,接口也没做哦...");
-    }
+    },
   },
   mounted() {
     this.getViewHeight();
