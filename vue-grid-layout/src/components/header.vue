@@ -8,7 +8,7 @@
         <div>
           <img src="../../static/史努比.png" alt="" srcset="" />
         </div>
-        <div class="textCenter">点我看时间哦...</div>
+        <div class="textCenter">点我看当前时间哦...</div>
       </div>
       <div class="dateWrapper" v-if="this.showOrBlock">{{ this.nowDate }}</div>
     </div>
