@@ -182,7 +182,6 @@ export default {
 .login_button {
   margin-top: 3%;
   width: 300px;
-  color: #fff !important;
 }
 .login_container {
   height: 100%;

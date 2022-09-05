@@ -8,7 +8,7 @@
         <img src="../../static/史努比.png" alt="" srcset="" />
         <div class="textCenter">点我看当前时间哦...</div>
       </div>
-      <div class="dateWrapper" v-if="this.showOrBlock">{{ this.nowDate }}</div>
+      <div class="dateWrapper" v-if="this.showOrBlock">{{ this.dateTime }}</div>
     </div>
   </div>
 </template>
@@ -31,13 +31,22 @@ export default {
       showOrBlock: false,
       // 图片显示
       pictureBlock: true,
+      dateTime: "",
     };
   },
   methods: {
     //  获取当前时间
     getNowDate() {
-      let myDate = new Date();
-      this.nowDate = myDate.toLocaleString();
+      let nowDate = new Date();
+      let year = nowDate.getFullYear();
+      let month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
+      let day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+      let hour = nowDate.getHours();
+      let minute = nowDate.getMinutes();
+      let second = nowDate.getSeconds();
+      let date = year + "-" + month + '-' + day;
+      let time = hour + ":" + minute + ":" + second;
+      this.dateTime = date + " " + time;
     },
     // 显示时间
     showTimeStamp() {
