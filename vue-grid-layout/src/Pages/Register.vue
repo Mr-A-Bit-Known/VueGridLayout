@@ -1,10 +1,14 @@
 <template>
   <div class="registerWrapper">
     <el-container>
-      <el-header
-        class="Header"
-        :style="{ height: this.headerHeight + 'px' }"
-      ></el-header>
+      <el-header class="Header" :style="{ height: this.headerHeight + 'px' }">
+        <div class="container">
+          <div class="containerLeft">
+            <img src="../../static/史努比-128.png" alt="" />
+            <div>新用户注册</div>
+          </div>
+        </div>
+      </el-header>
       <el-main class="Main" :style="{ height: this.screenHeight + 'px' }">
         <div class="registerBoxWrapper"></div>
       </el-main>
@@ -52,7 +56,10 @@ export default {
 }
 .Header {
   background-color: #b3c0d1;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to bottom right, #e7f6e6, #d3efd2);
 }
 .Main {
   background-color: #e9eef3;
@@ -62,6 +69,20 @@ export default {
   background-color: #b3c0d1;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 80%;
+  height: 100px;
+  font-style: italic;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.containerLeft {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 </style>

@@ -5,9 +5,7 @@
     </div>
     <div class="clockWrapper">
       <div class="dogTips" v-if="this.pictureBlock" @click="showTimeStamp()">
-        <div>
-          <img src="../../static/史努比.png" alt="" srcset="" />
-        </div>
+        <img src="../../static/史努比.png" alt="" srcset="" />
         <div class="textCenter">点我看当前时间哦...</div>
       </div>
       <div class="dateWrapper" v-if="this.showOrBlock">{{ this.nowDate }}</div>
@@ -82,6 +80,7 @@ export default {
 .dogTips {
   cursor: pointer;
   display: flex;
+  align-items: center;
   flex-direction: row;
 }
 .textCenter {

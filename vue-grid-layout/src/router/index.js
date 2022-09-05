@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '../Pages/HelloWorld.vue'
 import Register from '../Pages/Register.vue'
 import PagesNotFound from '../Pages/PagesNotFound.vue'
+import PasswordGetBack from '../Pages/PasswordGetBack.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,12 @@ export default new Router({
       path: "/Pages/404",
       name: "PagesNotFound",
       component: PagesNotFound
+    },
+    // 密码找回
+    {
+      path: "/Pages/PasswordGetBack",
+      name: "PasswordGetBack",
+      component: PasswordGetBack
     }
   ]
 })

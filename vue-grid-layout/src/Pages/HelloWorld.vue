@@ -14,7 +14,10 @@
                   label-width="0px"
                   class="login_form"
                 >
-                  <div class="login_title">用户登录注册界面</div>
+                  <div class="titleWrapper">
+                    <img src="../../static/史努比.png" alt="" />
+                    <div class="login_title">用户登录注册界面</div>
+                  </div>
                   <el-form-item class="login_username">
                     <el-input
                       v-model="userInfoForm.username"
@@ -99,7 +102,7 @@ export default {
     },
     // 找回密码
     passwordGetBack() {
-      alert("巧了,接口也没做哦...");
+      this.$router.push({ path: "/Pages/PasswordGetBack" });
     },
   },
   mounted() {
@@ -156,11 +159,17 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+.titleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 16%;
+}
 .login_form .login_title {
   font-size: 20px;
   font-weight: bold;
   color: black;
-  margin-top: 16%;
 }
 .login_form .login_username {
   width: 300px;
