@@ -35,12 +35,15 @@
                     <el-button class="registerBtn" type="primary" @click="RegisterConfirm()">确认注册</el-button>
                   </div>
                 </el-form-item>                
-                  <div class="serviceDetails">  
+                  <el-form-item label="">
+                    <div class="serviceDetails">
                     <div>
                       <input type="checkbox" v-model="checked">
                     </div>
                     <div>已阅读并同意以下协议</div>
+                    <div class="serviceColor" @click="serviceDetailInfoList()">平台服务协议、隐私权政策、法律声明、及客户端服务协议</div>
                     </div>
+                  </el-form-item>
               </el-form>
             </div>
           </div>
@@ -85,6 +88,10 @@ export default {
     },
     // 确认注册
     RegisterConfirm() {},
+    // 服务条款阅读
+    serviceDetailInfoList() {
+      window.open('../components/index');
+    }
   },
   mounted() {
     this.getViewHeight();
@@ -154,14 +161,19 @@ export default {
   vertical-align: middle;
 }
 .registerBtn {
-  width: 100% !important;
+  width: 400px !important; 
 }
 .serviceDetails {
   display: flex;
+  justify-content: left;
   align-items: center;
   font-size: 16px;
 }
 .serviceDetails div:nth-child(2) {
   margin-left: 5px;
+}
+.serviceColor {
+  color: red;
+  cursor: pointer;
 }
 </style>

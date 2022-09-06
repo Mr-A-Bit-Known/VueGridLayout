@@ -4,6 +4,7 @@ import HelloWorld from '../Pages/HelloWorld.vue'
 import Register from '../Pages/Register.vue'
 import PagesNotFound from '../Pages/PagesNotFound.vue'
 import PasswordGetBack from '../Pages/PasswordGetBack.vue'
+import ServiceDetailInfoList from '../Pages/ServiceDetailInfoList.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,12 @@ export default new Router({
       path: "/Pages/PasswordGetBack",
       name: "PasswordGetBack",
       component: PasswordGetBack
+    },
+    // 服务条款详情
+    {
+      path: "/Pages/ServiceDetailInfoList",
+      name: "ServiceDetailInfoList",
+      component: ServiceDetailInfoList
     }
   ]
 })
