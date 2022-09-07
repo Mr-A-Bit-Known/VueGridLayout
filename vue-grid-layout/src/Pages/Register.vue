@@ -8,6 +8,7 @@
             <div>新用户注册</div>
           </div>
         </div>
+        <div class="accountAlready" @click="returnLoginPage()">已有账号?立即登录</div>
       </el-header>
       <el-main class="Main" :style="{ height: this.screenHeight + 'px' }">
         <div class="registerBoxWrapper">
@@ -27,7 +28,7 @@
                 </el-form-item>
                 <el-form-item label="验证码">
                   <el-input v-model="loginNumberList.varifyCode" class="varifyCode" placeholder="请输入短信验证码" clearable>
-                    <template slot="append" @click="show()">获取验证码</template>
+                    <template slot="append"><div class="varifyCodeAchieve" @click="show()">获取验证码</div></template>
                   </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -35,10 +36,10 @@
                     <el-button class="registerBtn" type="primary" @click="RegisterConfirm()">确认注册</el-button>
                   </div>
                 </el-form-item>                
-                  <el-form-item label="">
+                  <el-form-item>
                     <div class="serviceDetails">
                     <div>
-                      <input type="checkbox" v-model="checked">
+                      <input type="checkbox" v-model="loginNumberList.checked">
                     </div>
                     <div>已阅读并同意以下协议</div>
                     <div class="serviceColor" @click="serviceDetailInfoList()">平台服务协议、隐私权政策、法律声明、及客户端服务协议</div>
@@ -70,9 +71,9 @@ export default {
       loginNumberList: {
         inputValue: "",
         varifyCode: "",
+        // 服务条款是否勾选
+        checked: false,
       },
-      // 服务条款是否勾选
-      checked: false,
     };
   },
   methods: {
@@ -82,15 +83,21 @@ export default {
         this.$getViewSize().height - (this.headerHeight + this.footerHeight);
       this.screenHeight = screenHeight;
     },
+    // 返回登录页
+    returnLoginPage() {
+      this.$router.push('../Pages/HelloWorld');
+    },
     // 获取验证码
     show() {
       alert("123")
     },
     // 确认注册
-    RegisterConfirm() {},
+    RegisterConfirm() {
+      
+    },
     // 服务条款阅读
     serviceDetailInfoList() {
-      window.open('../components/index');
+      window.open("../Pages/ServiceDetailInfoList","_blank");
     }
   },
   mounted() {
@@ -113,9 +120,20 @@ export default {
 .Header {
   background-color: #b3c0d1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to bottom right, #e7f6e6, #d3efd2);
+  background-image: linear-gradient(to right,#c2e9fb 30%,#a1c4fd 100%);
+}
+.accountAlready {
+  width: 60%;
+  display: flex;
+  font-size: 16px;
+  justify-content: right;
+}
+.accountAlready:hover {
+  cursor: pointer;
+  color: rgb(64,158,255);
 }
 .Main {
   background-color: #e9eef3;
@@ -127,7 +145,7 @@ export default {
   background-color: #b3c0d1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
 }
 .container {
   width: 80%;
@@ -168,6 +186,7 @@ export default {
   justify-content: left;
   align-items: center;
   font-size: 16px;
+  margin-top: 3%;
 }
 .serviceDetails div:nth-child(2) {
   margin-left: 5px;
@@ -175,5 +194,11 @@ export default {
 .serviceColor {
   color: red;
   cursor: pointer;
+}
+.varifyCodeAchieve {
+  cursor: pointer;
+}
+.varifyCodeAchieve:hover {
+  color: rgb(64,158,255);
 }
 </style>

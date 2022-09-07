@@ -98,7 +98,7 @@ export default {
     },
     // 注册账号
     registerAccountFun() {
-      this.$router.push({ path: "/Pages/register" });
+      this.$router.push({path: "/Pages/Register"});
     },
     // 找回密码
     passwordGetBack() {
