@@ -8,7 +8,7 @@
             <div>新用户注册</div>
           </div>
         </div>
-        <div class="accountAlready" @click="returnLoginPage()">已有账号?立即登录</div>
+        <div class="accountAlreadyWrapper"><div class="accountAlready" @click="returnLoginPage()">已有账号?立即登录</div></div>
       </el-header>
       <el-main class="Main" :style="{ height: this.screenHeight + 'px' }">
         <div class="registerBoxWrapper">
@@ -28,7 +28,10 @@
                 </el-form-item>
                 <el-form-item label="验证码">
                   <el-input v-model="loginNumberList.varifyCode" class="varifyCode" placeholder="请输入短信验证码" clearable>
-                    <template slot="append"><div class="varifyCodeAchieve" @click="show()">获取验证码</div></template>
+                    <template slot="append">
+                    <el-button v-if="show" class="varifyCodeAchieve" @click="varifyCodeAchieve()">获取验证码</el-button>
+                    <el-button v-if="!show" class="varifyCodeAchieveForbidden">{{this.count}}S后重新获取</el-button>
+                    </template>
                   </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -74,6 +77,10 @@ export default {
         // 服务条款是否勾选
         checked: false,
       },
+      // 验证码Btn显示
+      show: true,
+      count: "",
+      timer: null,
     };
   },
   methods: {
@@ -87,9 +94,24 @@ export default {
     returnLoginPage() {
       this.$router.push('../Pages/HelloWorld');
     },
+    // 验证码60S 倒计时
     // 获取验证码
-    show() {
-      alert("123")
+    varifyCodeAchieve() {
+      console.log(123);
+      const TIME_COUNT = 60;
+      if(!this.timer) {
+        this.count = TIME_COUNT;
+        this.show = false;
+        this.timer = setInterval(() => {
+          if(this.count > 0 && this.count <= TIME_COUNT) {
+            this.count --;
+          }else {
+            this.show = true;
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+        },1000)
+      }
     },
     // 确认注册
     RegisterConfirm() {
@@ -97,7 +119,7 @@ export default {
     },
     // 服务条款阅读
     serviceDetailInfoList() {
-      window.open("../Pages/ServiceDetailInfoList","_blank");
+      window.open("../Pages/ServiceDetailInfoList");
     }
   },
   mounted() {
@@ -125,11 +147,14 @@ export default {
   align-items: center;
   background-image: linear-gradient(to right,#c2e9fb 30%,#a1c4fd 100%);
 }
-.accountAlready {
+.accountAlreadyWrapper {
   width: 60%;
   display: flex;
-  font-size: 16px;
   justify-content: right;
+}
+.accountAlready {
+  display: flex;
+  font-size: 16px;
 }
 .accountAlready:hover {
   cursor: pointer;
@@ -196,9 +221,10 @@ export default {
   cursor: pointer;
 }
 .varifyCodeAchieve {
+  color: rgb(64,158,255);
   cursor: pointer;
 }
-.varifyCodeAchieve:hover {
-  color: rgb(64,158,255);
+.varifyCodeAchieveForbidden {
+  cursor: not-allowed;
 }
 </style>
