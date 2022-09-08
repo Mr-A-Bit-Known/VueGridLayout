@@ -16,7 +16,8 @@
             <div class="registerBoxContainerHead"></div>
             <div class="formWrapper">
               <el-form label-width="80px">
-                <el-form-item label="手机号码">
+                <div class="phoneNumberWrapper">
+                  <el-form-item label="手机号码">
                   <el-input placeholder="请输入你的手机号码" v-model="loginNumberList.inputValue" clearable>
                     <el-select v-model="select" slot="prepend" placeholder="请选择">
                       <el-option label="中国大陆 +86" value="1"></el-option>
@@ -26,14 +27,20 @@
                     </el-select>
                   </el-input>
                 </el-form-item>
-                <el-form-item label="验证码">
+                <div class="reminderMsg" v-if="this.phoneNumberNull">手机号码不能为空!</div>
+                <div class="reminderMsg" v-if="this.phoneNumberFormatIncorrect">手机格式不正确!</div>
+                </div>
+                <div class="phoneNumberWrapper">
+                  <el-form-item label="验证码">
                   <el-input v-model="loginNumberList.varifyCode" class="varifyCode" placeholder="请输入短信验证码" clearable>
                     <template slot="append">
                     <el-button v-if="show" class="varifyCodeAchieve" @click="varifyCodeAchieve()">获取验证码</el-button>
-                    <el-button v-if="!show" class="varifyCodeAchieveForbidden">{{this.count}}S后重新获取</el-button>
+                    <el-button v-if="!show" class="varifyCodeAchieveForbidden">重新获取({{this.count}}S)</el-button>
                     </template>
                   </el-input>
                 </el-form-item>
+                <div class="reminderMsg" v-if="this.varifyCodeNull">验证码不能为空!!!</div>
+                </div>
                 <el-form-item>
                   <div>
                     <el-button class="registerBtn" type="primary" @click="RegisterConfirm()">确认注册</el-button>
@@ -81,6 +88,12 @@ export default {
       show: true,
       count: "",
       timer: null,
+      // 手机号码为空
+      phoneNumberNull: false,
+      // 手机号码格式不正确
+      phoneNumberFormatIncorrect: false,
+      // 验证码为空
+      varifyCodeNull: false,
     };
   },
   methods: {
@@ -97,7 +110,10 @@ export default {
     // 验证码60S 倒计时
     // 获取验证码
     varifyCodeAchieve() {
-      console.log(123);
+      if(this.loginNumberList.inputValue == "") {
+        this.phoneNumberNull = true;
+        return;
+      }     
       const TIME_COUNT = 60;
       if(!this.timer) {
         this.count = TIME_COUNT;
@@ -115,11 +131,30 @@ export default {
     },
     // 确认注册
     RegisterConfirm() {
-      
+      if(this.loginNumberList.inputValue == "" && this.loginNumberList.varifyCode == "") {
+        this.phoneNumberNull = true;
+        this.varifyCodeNull = true;
+      }
     },
     // 服务条款阅读
     serviceDetailInfoList() {
       window.open("../Pages/ServiceDetailInfoList");
+    },
+  },
+    // 输入框数据监听
+  watch: {
+    'loginNumberList.inputValue': {
+        handler(newVal,oldVal) {
+          this.phoneNumberNull = false;  
+        },
+        immediate: true
+    },
+    deep: true,
+    'loginNumberList.varifyCode': {
+      handler(newVal,oldVal) {
+        this.varifyCodeNull = false;
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -226,5 +261,16 @@ export default {
 }
 .varifyCodeAchieveForbidden {
   cursor: not-allowed;
+}
+.phoneNumberWrapper {
+  display: flex;
+}
+.reminderMsg {
+  height: 40px;
+  color: red;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-left: 3%;
 }
 </style>
