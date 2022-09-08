@@ -131,10 +131,17 @@ export default {
     },
     // 确认注册
     RegisterConfirm() {
-      if(this.loginNumberList.inputValue == "" && this.loginNumberList.varifyCode == "") {
-        this.phoneNumberNull = true;
-        this.varifyCodeNull = true;
+     if(this.loginNumberList.inputValue == "" || this.loginNumberList.varifyCode == "") {
+      this.phoneNumberNull = true;
+      this.varifyCodeNull = true;
+      if(this.loginNumberList.inputValue != "") {
+        this.phoneNumberNull = false;
+      }else if(this.loginNumberList.varifyCode != "") {
+        this.varifyCodeNull = false;
       }
+     }else {
+      alert("123456");
+     }
     },
     // 服务条款阅读
     serviceDetailInfoList() {
@@ -149,7 +156,7 @@ export default {
         },
         immediate: true
     },
-    deep: true,
+    immediate: true,
     'loginNumberList.varifyCode': {
       handler(newVal,oldVal) {
         this.varifyCodeNull = false;
