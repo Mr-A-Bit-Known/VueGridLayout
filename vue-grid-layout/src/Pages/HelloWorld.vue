@@ -80,6 +80,9 @@ export default {
       screenHeight: "",
       // 表单数据
       userInfoForm: {
+
+
+
         username: "",
         password: "",
       },
@@ -94,7 +97,34 @@ export default {
     },
     // 表单提交
     submit() {
-      alert("Success...");
+      if(this.userInfoForm.username == "" && this.userInfoForm.password == "") {
+        // 控制弹窗的数量
+        if(document.getElementsByClassName('el-message').length > 1) return;
+        this.$message({
+          message: "用户名及密码不能为空...",
+          type: "error",
+          center: true
+        })
+        return;
+      }else if(this.userInfoForm.username != "" && this.userInfoForm.password == ""){
+        if(document.getElementsByClassName('el-message').length > 1) return;
+        this.$message({
+          message: "密码不能为空...",
+          type: "error",
+          center: true
+        })
+        return;
+      }else if (this.userInfoForm.username == "" && this.userInfoForm.password != "") {
+        if(document.getElementsByClassName('el-message').length > 1) return;
+        this.$message({
+          message: "用户名不能为空...",
+          type: "error",
+          center: true
+        })
+        return;
+      }else {
+        alert("登录成功...Success...");
+      }
     },
     // 注册账号
     registerAccountFun() {
@@ -111,7 +141,7 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.getViewHeight, false);
-  },
+  },  
   // 事件监听
   watch: {},
 };

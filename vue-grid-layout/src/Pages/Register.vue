@@ -4,7 +4,7 @@
       <el-header class="Header" :style="{ height: this.headerHeight + 'px' }">
         <div class="container">
           <div class="containerLeft">
-            <img src="../../static/史努比-128.png" alt="" />
+            <img src="../../static/史努比-128.png" alt="主题图片" />
             <div>新用户注册</div>
           </div>
         </div>
@@ -18,17 +18,15 @@
               <el-form label-width="80px">
                 <div class="phoneNumberWrapper">
                   <el-form-item label="手机号码">
-                  <el-input placeholder="请输入你的手机号码" v-model="loginNumberList.inputValue" clearable>
-                    <el-select v-model="select" slot="prepend" placeholder="请选择">
-                      <el-option label="中国大陆 +86" value="1"></el-option>
-                      <el-option label="中国香港 +852" value="2"></el-option>
-                      <el-option label="中国澳门 +853" value="3"></el-option>
-                      <el-option label="中国台湾 +886" value="4"></el-option>
+                  <el-input placeholder="请输入你的手机号码" maxlength="11" v-model="loginNumberList.inputValue" clearable>
+                    <el-select v-model="selectOptions[0].value" slot="prepend" placeholder="请选择">
+                      <el-option v-for="item in selectOptions" :key="item.index" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
                     </el-select>
                   </el-input>
                 </el-form-item>
-                <div class="reminderMsg" v-if="this.phoneNumberNull">手机号码不能为空!</div>
-                <div class="reminderMsg" v-if="this.phoneNumberFormatIncorrect">手机格式不正确!</div>
+                <div class="reminderMsg" id="phoneNumberBox" v-if="this.phoneNumberNull">手机号码不能为空</div>
+                <!-- <div class="reminderMsg" v-if="this.phoneNumberLengthIncorrecrt">手机号码最多不超过11位</div> -->
+                <div class="reminderMsg" v-if="this.phoneNumberFormatIncorrect">手机格式不正确</div>
                 </div>
                 <div class="phoneNumberWrapper">
                   <el-form-item label="验证码">
@@ -39,7 +37,8 @@
                     </template>
                   </el-input>
                 </el-form-item>
-                <div class="reminderMsg" v-if="this.varifyCodeNull">验证码不能为空!!!</div>
+                <div class="reminderMsg" id="varifyCodeBox" v-if="this.varifyCodeNull">验证码不能为空</div>
+                <div class="reminderMsg" v-if="this.varifyCodeFormatIncorrect">验证码格式不正确</div>
                 </div>
                 <el-form-item>
                   <div>
@@ -75,8 +74,27 @@ export default {
       footerHeight: 30,
       // screenWidth: "",
       screenHeight: "",
-      // 电话信息选择
-      select: "",
+      // 电话信息下拉框选项
+      selectOptions: [{
+        index: 1,
+        value: "选项1",
+        label: "中国大陆 +86"
+      },
+      {
+        index: 2,
+        value: "选项2",
+        label:"中国香港 +852"
+      },
+      {
+        index: 3,
+        value: "选项3",
+        label:"中国澳门 +853"
+      },
+      {
+        index: 4,
+        value: "选项4",
+        label:"中国台湾 +886",
+      }],
       // form表单信息
       loginNumberList: {
         inputValue: "",
@@ -94,6 +112,12 @@ export default {
       phoneNumberFormatIncorrect: false,
       // 验证码为空
       varifyCodeNull: false,
+      // 验证码格式不正确
+      varifyCodeFormatIncorrect: false,
+      // 手机号码长度不正确
+      phoneNumberLengthIncorrecrt: false,
+      // 输入框内容监听
+      phoneNumberInput: "",
     };
   },
   methods: {
@@ -110,38 +134,9 @@ export default {
     // 验证码60S 倒计时
     // 获取验证码
     varifyCodeAchieve() {
-      if(this.loginNumberList.inputValue == "") {
-        this.phoneNumberNull = true;
-        return;
-      }     
-      const TIME_COUNT = 60;
-      if(!this.timer) {
-        this.count = TIME_COUNT;
-        this.show = false;
-        this.timer = setInterval(() => {
-          if(this.count > 0 && this.count <= TIME_COUNT) {
-            this.count --;
-          }else {
-            this.show = true;
-            clearInterval(this.timer);
-            this.timer = null;
-          }
-        },1000)
-      }
     },
     // 确认注册
     RegisterConfirm() {
-     if(this.loginNumberList.inputValue == "" || this.loginNumberList.varifyCode == "") {
-      this.phoneNumberNull = true;
-      this.varifyCodeNull = true;
-      if(this.loginNumberList.inputValue != "") {
-        this.phoneNumberNull = false;
-      }else if(this.loginNumberList.varifyCode != "") {
-        this.varifyCodeNull = false;
-      }
-     }else {
-      alert("123456");
-     }
     },
     // 服务条款阅读
     serviceDetailInfoList() {
@@ -152,7 +147,9 @@ export default {
   watch: {
     'loginNumberList.inputValue': {
         handler(newVal,oldVal) {
-          this.phoneNumberNull = false;  
+          if(this.loginNumberList.inputValue.length > 0) {
+            this.phoneNumberNull = false;
+          }
         },
         immediate: true
     },
@@ -170,7 +167,7 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.getViewHeight, false);
-  },
+  },   
 };
 </script>
 
@@ -239,7 +236,7 @@ export default {
   height: 150px;
 }
 .el-form .el-select {
-  width: 160px !important;
+  width: 140px !important;
 }
 .el-form .el-input {
   width: 400px !important;
