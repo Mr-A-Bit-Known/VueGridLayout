@@ -19,8 +19,8 @@
                 <div class="phoneNumberWrapper">
                   <el-form-item label="手机号码">
                   <el-input placeholder="请输入你的手机号码" maxlength="11" v-model="loginNumberList.inputValue" clearable>
-                    <el-select v-model="selectOptions[0].value" slot="prepend" placeholder="请选择">
-                      <el-option v-for="item in selectOptions" :key="item.index" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+                    <el-select v-model="select" slot="prepend" placeholder="请选择">
+                      <el-option v-for="item in selectOptions" :key="item.value" :label="item.label" :value="item.value" @change="$forceUpdate()"></el-option>
                     </el-select>
                   </el-input>
                 </el-form-item>
@@ -76,25 +76,23 @@ export default {
       screenHeight: "",
       // 电话信息下拉框选项
       selectOptions: [{
-        index: 1,
         value: "选项1",
         label: "中国大陆 +86"
       },
       {
-        index: 2,
         value: "选项2",
         label:"中国香港 +852"
       },
       {
-        index: 3,
         value: "选项3",
         label:"中国澳门 +853"
       },
       {
-        index: 4,
         value: "选项4",
         label:"中国台湾 +886",
       }],
+      // 下拉菜单默认选项
+      select: "选项1",
       // form表单信息
       loginNumberList: {
         inputValue: "",
@@ -124,16 +122,17 @@ export default {
     // 过去屏幕高度信息
     getViewHeight() {
       const screenHeight =
-        this.$getViewSize().height - (this.headerHeight + this.footerHeight);
+        this.$getViewSize().height - (this.headerHeight + this.footerHeight); 
       this.screenHeight = screenHeight;
     },
     // 返回登录页
     returnLoginPage() {
       this.$router.push('../Pages/HelloWorld');
     },
-    // 验证码60S 倒计时
+    // 验证码60S 倒计时 
     // 获取验证码
     varifyCodeAchieve() {
+      const reqMobile = 123;
     },
     // 确认注册
     RegisterConfirm() {
