@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilletLoading-Animation</title>
+</head>
+<style type="text/css">
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: aliceblue;
+    }
+
+    .roate-animation {
+        width: 60px;
+        height: 60px;
+        border: 16px solid;
+        border-radius: 50%;
+        animation: roate 2s linear infinite;
+    }
+
+    .roate-animation.fill-color {
+        border-color: #2842d8 #d1b516 #cf4928 #27c965;
+    }
+
+    @keyframes roate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .text {
+        margin-top: 120px;
+        position: fixed;
+        font-size: 16px;
+        font-style: italic;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="wrapper" id="">
+        <div>
+            <div class="ratae-animation"></div>
+            <div class="roate-animation fill-color"></div>
+        </div>
+        <div class="text">拼命加载中...</div>
+    </div>
+</body>
+
+</html>

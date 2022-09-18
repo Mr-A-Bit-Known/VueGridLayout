@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColumnarLoading-Animation</title>
+</head>
+<style type="text/css">
+    .wrapper {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: aliceblue;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container span {
+        margin-left: 2px;
+        display: block;
+        bottom: 0px;
+        width: 10px;
+        height: 20px;
+        animation: roate 1.5s linear infinite;
+    }
+
+    .container span:nth-child(1) {
+        left: 11px;
+        animation-delay: .2s;
+    }
+
+    .container span:nth-child(2) {
+        left: 22px;
+        animation-delay: .3s;
+    }
+
+    .container span:nth-child(3) {
+        left: 33px;
+        animation-delay: .4s;
+    }
+
+    .container span:nth-child(4) {
+        left: 44px;
+        animation-delay: .5s;
+    }
+    .container span:nth-child(5) {
+        left: 55px;
+        animation-delay: .6s;
+    }
+    .container span:nth-child(6) {
+        left: 66px;
+        animation-delay: .7s;
+    }
+    .container span:nth-child(7) {
+        left: 77px;
+        animation-delay: .8s;
+    }
+    @keyframes roate {
+        0% {
+            height: 5px;
+            transform: translateZ(0px);
+            background-color: antiquewhite;
+        }
+
+        25% {
+            height: 40px;
+            transform: translateZ(10px);
+            background-color: aqua;
+        }
+
+        50% {
+            height: 5px;
+            transform: translateZ(0px);
+            background-color: aquamarine;
+        }
+
+        100% {
+            height: 5px;
+            transform: translateZ(0px);
+            background-color: blue;
+        }
+    }
+    .text {
+        margin-top: 60px;
+        position: fixed;
+        font-size: 16px;
+        font-style: italic;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="text">拼命加载中...</div>
+    </div>
+</body>
+
+</html>
