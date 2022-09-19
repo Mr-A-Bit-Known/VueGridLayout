@@ -7,8 +7,7 @@
             <el-main :style="{ height: this.screenHeight + 'px' }">
                 <div class="searchWrapper">
                     <div class="searchInput">
-                        <el-input  ref="input" @keydown.enter.native="searchBatchCode" v-model="inputValueChange"
-                            class="searchInputStyle" placeholder="请输入对应的组装批次搜索程序..." />
+                        <el-input  ref="input" @keydown.enter.native="searchBatchCode" v-model="inputValueChange" class="searchInputStyle" placeholder="请输入对应的组装批次搜索程序..." />
                     </div>
                     <div class="confirmBtn">
                         <el-button class="confirmBtnStyle" @click="searchBatchCode" type="primary">确认搜索</el-button>

@@ -15,9 +15,13 @@ Vue.use(ElementUI);
 // 全局组件
 import Header from '../src/components/header.vue';
 import Footer from '../src/components/footer.vue';
+import NavHeader from '../src/components/navHeader.vue';
+import NavBar from '../src/components/navBar';
 
 Vue.component('Header', Header);
 Vue.component('Footer', Footer);
+Vue.component('NavHeader',NavHeader);
+Vue.component('NavBar',NavBar);
 
 
 // 动态获取屏幕高度和宽度

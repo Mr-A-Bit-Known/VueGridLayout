@@ -41,7 +41,8 @@
                       <el-button
                         class="login_button"
                         type="primary"
-                        @click="submit()"
+                        @click="submit"
+                        @keyup.enter.native="submit"
                         >登录</el-button
                       >
                     </div></el-form-item
@@ -73,6 +74,9 @@
 
 <script>
 export default {
+  created() {
+    this.keyupEnter();
+  },
   data() {
     return {
       headerHeight: 40,
@@ -81,9 +85,6 @@ export default {
       screenHeight: "",
       // 表单数据
       userInfoForm: {
-
-
-
         username: "",
         password: "",
       },
@@ -92,9 +93,12 @@ export default {
   methods: {
     // 获取屏幕高度信息
     getViewHeight() {
-      const screenHeight =
-        this.$getViewSize().height - (this.headerHeight + this.footerHeight);
+      const screenHeight = this.$getViewSize().height - (this.headerHeight + this.footerHeight);
       this.screenHeight = screenHeight;
+    },
+    // 键盘回车事件
+    keyupEnter() {
+      
     },
     // 表单提交
     submit() {

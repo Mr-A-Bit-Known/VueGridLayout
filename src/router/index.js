@@ -6,6 +6,7 @@ import PagesNotFound from '../Pages/PagesNotFound.vue'
 import PasswordGetBack from '../Pages/PasswordGetBack.vue'
 import ServiceDetailInfoList from '../Pages/ServiceDetailInfoList.vue'
 import Homepage from '../Pages/Homepage.vue'
+import MainPage from '../Pages/MainPage' 
 
 Vue.use(Router)
 
@@ -16,7 +17,7 @@ export default new Router({
       // 默认路由重定向
       path: '/',
       // redirect: "/Pages/HelloWorld",
-      redirect: "/Pages/Homepage"
+      redirect: "/Pages/MainPage"
     },
     // 默认HelloWorld为登陆界面
     {
@@ -53,6 +54,12 @@ export default new Router({
       path: "/Pages/Homepage",
       name: "Homepage",
       component: Homepage
+    },
+    // 主界面
+    {
+      path: "/Pages/MainPage",
+      name: "MainPage",
+      component: MainPage
     }
   ]
 })
