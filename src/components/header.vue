@@ -5,28 +5,24 @@
     </div>
     <div class="clockWrapper">
       <div class="dogTips" v-if="this.pictureBlock" @click="showTimeStamp()">
-        <img src="../../static/史努比.png" alt="" srcset="" />
+        <img src="../../static/史努比.png" />
         <div class="textCenter">点我看当前时间哦...</div>
       </div>
-      <div class="dateWrapper" v-if="this.showOrBlock">{{ this.dateTime }}</div>
+      <div class="dateWrapper" v-if="this.showOrBlock">{{ globalDate + '/' + globalTime }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState,mapMutations} from 'vuex';
 export default {
-  mounted() {
-    this.timer = setInterval(() => {
-      this.getNowDate();
-    }, 1000);
-  },
   data() {
     return {
       nowDate: "",
-      // 设置计时器;
+      // 第一个计时器
       timer: null,
       // 第二个计时器
-      timerSecond: null,
+      timer_02: null,
       // 是否显示时间
       showOrBlock: false,
       // 图片显示
@@ -35,35 +31,24 @@ export default {
     };
   },
   methods: {
-    //  获取当前时间
-    getNowDate() {
-      let nowDate = new Date();
-      let year = nowDate.getFullYear();
-      let month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
-      let day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
-      let hour = nowDate.getHours();
-      let minute = nowDate.getMinutes();
-      let second = nowDate.getSeconds();
-      let date = year + "-" + month + '-' + day;
-      let time = hour + ":" + minute + ":" + second;
-      this.dateTime = date + " " + time;
-    },
+    ...mapMutations(['getNowDate']),
     // 显示时间
     showTimeStamp() {
       this.showOrBlock = true;
       this.pictureBlock = false;
-      this.timerSecond = setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.showOrBlock = false;
         this.pictureBlock = true;
       }, 5000);
     },
   },
-  beforeDestroy() {
+  computed: {
+    ...mapState(['globalDate','globalTime'])
+  },
+  destroyed() {
     // 清除计时器
-    clearInterval(this.timer);
-    this.timer = null;
-    clearTimeout(this.timerSecond);
-    this.timerSecond = null;
+    clearTimeout(this.timer);
+    clearInterval(this.timer_02);
   },
 };
 </script>

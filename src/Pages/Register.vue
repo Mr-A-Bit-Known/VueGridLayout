@@ -1,10 +1,10 @@
 <template>
   <div class="registerWrapper">
-    <el-container>
+    <el-container class="registerFormWrapper">
       <el-header class="Header" :style="{ height: this.headerHeight + 'px' }">
         <div class="container">
           <div class="containerLeft">
-            <img src="../../static/史努比-128.png" alt="主题图片" />
+            <img v-lazy src="../../static/史努比-128.png" alt="主题图片" />
             <div>新用户注册</div>
           </div>
         </div>
@@ -42,13 +42,13 @@
                       </el-select>
                     </el-input>
                   </el-form-item>
-                  <div
+                  <!-- <div
                     class="reminderMsg"
                     id="phoneNumberBox"
                     v-if="this.phoneNumberNull"
                   >
                     手机号码不能为空
-                  </div>
+                  </div> -->
                   <!-- <div class="reminderMsg" v-if="this.phoneNumberLengthIncorrecrt">手机号码最多不超过11位</div>
                 <div class="reminderMsg" v-if="this.phoneNumberFormatIncorrect">手机格式不正确</div> -->
                 </div>
@@ -117,6 +117,7 @@
 </template>
 
 <script>
+// import moment from "moment";
 export default {
   data() {
     return {
@@ -126,22 +127,24 @@ export default {
       // screenWidth: "",
       screenHeight: "",
       // 电话信息下拉框选项
-      selectOptions: [{
-        value: "选项1",
-        label: "中国大陆 +86"
-      },
-      {
-        value: "选项2",
-        label:"中国香港 +852"
-      },
-      {
-        value: "选项3",
-        label:"中国澳门 +853"
-      },
-      {
-        value: "选项4",
-        label:"中国台湾 +886",
-      }],
+      selectOptions: [
+        {
+          value: "选项1",
+          label: "中国大陆 +86",
+        },
+        {
+          value: "选项2",
+          label: "中国香港 +852",
+        },
+        {
+          value: "选项3",
+          label: "中国澳门 +853",
+        },
+        {
+          value: "选项4",
+          label: "中国台湾 +886",
+        },
+      ],
       // 下拉菜单默认选项
       select: "选项1",
       // form表单信息
@@ -156,7 +159,7 @@ export default {
       count: "",
       timer: null,
       // 手机号码为空
-      phoneNumberNull: false,
+      // phoneNumberNull: false,
       // // 手机号码格式不正确
       // phoneNumberFormatIncorrect: false,
       // 验证码为空
@@ -169,83 +172,90 @@ export default {
       phoneNumberInput: "",
       // 验证是否输入验证码
       disabled: true,
-      // 未输入验证码，按钮置灰
-      disabled: true,
+      // 时间
+      date: "",
+      time: "",
+      weekOfDay: "",
     };
   },
   methods: {
-    // 获取屏幕高度信息
-    getViewHeight() {
-      const screenHeight =
-        this.$getViewSize().height - (this.headerHeight + this.footerHeight); 
-      this.screenHeight = screenHeight;
-    },
     // 返回登录页
     returnLoginPage() {
-      this.$router.push('../Pages/HelloWorld');
+      this.$router.push("../Pages/HelloWorld");
     },
-    // 验证码60S 倒计时 
+    // 获取时间
+    // getTimeData() {
+    //   const date = this.$getTimeDate().date;
+    //   const time = this.$getTimeDate().time;
+    //   this.date = date;
+    //   this.time = time;
+    //   this.timer = setTimeout(() => {
+    //     this.getTimeData();
+    //   }, 1000);
+    // },
+    // 验证码60S 倒计时
     // 获取验证码
     varifyCodeAchieve() {
-      const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
-      if(!regMobile.test(this.loginNumberList.inputValue)) {
-        if(document.getElementsByClassName('el-message').length > 1) return;
+      const regMobile =
+        /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+      if (!regMobile.test(this.loginNumberList.inputValue)) {
+        if (document.getElementsByClassName("el-message").length > 1) return;
         this.$message({
           message: "手机号码格式不正确...",
           type: "error",
           center: true,
-          duration: 1000
-        })
-       }else {
+          duration: 1000,
+        });
+      } else {
         alert("Achiece Success...");
-       }
+      }
       const reqMobile = /^1[3|4|5|7|8][0-9]{9}$/;
-      if(this.loginNumberList.inputValue == "") {
+      if (this.loginNumberList.inputValue == "") {
         this.phoneNumberNull = true;
         return;
-      }else if (!reqMobile.test(this.loginNumberList.inputValue)) {
-        if(document.getElementsByClassName('el-message').length > 1) return;
+      } else if (!reqMobile.test(this.loginNumberList.inputValue)) {
+        if (document.getElementsByClassName("el-message").length > 1) return;
         this.$message({
-          message : "手机号码格式不正确...",
+          message: "手机号码格式不正确...",
           type: "error",
-          center: true
-        })
+          center: true,
+        });
         return;
-      }else {
+      } else {
         console.log("Achieve Success...");
       }
     },
     // 确认注册
     RegisterConfirm() {
-        if(this.loginNumberList.inputValue == "" && this.loginNumberList.varifyCode == "") {
-          this.phoneNumberNull = true;
-        }
+      if (this.loginNumberList.checked == false) {
+        if (document.getElementsByClassName("el-message").length > 1) return;
+        this.$message({
+          message: "请查看同意并勾选服务条款...",
+          type: "error",
+          center: true,
+        });
+      }
     },
-    // 服务条款阅读  
+    // 服务条款阅读
     serviceDetailInfoList() {
       window.open("../Pages/ServiceDetailInfoList");
     },
   },
-    // 输入框数据监听
+  // 输入框数据监听
   watch: {
-    'loginNumberList.inputValue': {
-        handler(newVal,oldVal) {
-          this.phoneNumberNull = false;
-        },
+    "loginNumberList.inputValue": {
+      handler(newVal, oldVal) {
+        if (this.loginNumberList.inputValue != "" && this.loginNumberList.varifyCode != "") {
+          this.disabled = false;
+        } else {
+          this.disabled = true;
+        }
+      },
+      "loginNumberList.varifyCode": {
+        handler(newVal, oldVal) {},
+      },
     },
-    'loginNumberList.varifyCode' : {
-      handler(newVal,oldVal) {
-
-      }
-    }
   },
-  mounted() {
-    this.getViewHeight();
-    window.addEventListener("resize", this.getViewHeight);
-  },
-  destroyed() {
-    window.removeEventListener("resize", this.getViewHeight, false);
-  },   
 };
 </script>
 
@@ -263,6 +273,11 @@ export default {
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(to right, #c2e9fb 30%, #a1c4fd 100%);
+}
+.registerFormWrapper {
+  height: 100vh;
+  padding: 0!important;
+  margin: 0!important;
 }
 .accountAlreadyWrapper {
   width: 60%;

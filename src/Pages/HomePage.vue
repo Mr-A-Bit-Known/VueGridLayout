@@ -1,153 +1,159 @@
 <template>
-    <div class="homepageWrapper">
+  <div class="homepageWrapper">
+    <el-container class="layouWrapper">
+      <!-- 头部区域 -->
+      <el-header class="headerWrapper">
+        <div class="headerContainer">
+          <div class="headerLeft">
+            <img src="../../static/史努比.png" alt="" />
+            <div class="dropdownWrapper">
+              <el-dropdown
+                trigger="click"
+                v-for="item in menuListJson.dropdownList"
+                :key="item.id"
+                @command="handleCommand"
+              >
+                <span class="el-dropdown-link">{{ item.name }}</span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    :command="subItem.id"
+                    :name="subItem.name"
+                    v-for="subItem in item.children"
+                    :key="subItem.id"
+                    >{{ subItem.name }}</el-dropdown-item
+                  >
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+          </div>
+        </div>
+      </el-header>
+      <!-- 侧边栏 -->
+      <el-container>
+        <el-aside width="200px">
+          <el-menu background-color="#545c64" text-color="#fff" :collapse="isCollapse" unique-opened>
+            <el-submenu
+              :index="item.id + ' '"
+              v-for="item in menuListJson.menuList"
+              :key="item.id"
+            >
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>{{ item.name }}</span>
+              </template>
+              <!-- 二级菜单 -->
+              <el-submenu
+                :index="subItem.id + ''"
+                v-for="subItem in item.children"
+                :key="subItem.id"
+              >
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span>{{ subItem.name }}</span>
+                </template>
+                <el-submenu
+                  :index="thirdItem.id + ''"
+                  v-for="thirdItem in subItem.children"
+                  :key="thirdItem.id"
+                >
+                  <template slot="title">
+                    <i class="el-icon-s-promotion"></i>
+                    <span>{{ thirdItem.name }}</span>
+                  </template>
+                </el-submenu>
+              </el-submenu>
+            </el-submenu>
+          </el-menu>
+        </el-aside>
         <el-container>
-            <el-header :style="{ height: this.header_style + 'px' }">
-                <div></div>
-            </el-header>
-            <el-main :style="{ height: this.screenHeight + 'px' }">
-                <div class="searchWrapper">
-                    <div class="searchInput">
-                        <el-input  ref="input" @keydown.enter.native="searchBatchCode" v-model="inputValueChange" class="searchInputStyle" placeholder="请输入对应的组装批次搜索程序..." />
-                    </div>
-                    <div class="confirmBtn">
-                        <el-button class="confirmBtnStyle" @click="searchBatchCode" type="primary">确认搜索</el-button>
-                    </div>
-                </div>
-                <div class="containerWrapper">
-                    <el-card>
-                        <el-empty description="oh,你要找的东西不见了"></el-empty>
-                    </el-card>
-                </div>
-            </el-main>
-            <el-footer :style="{ height: this.footer_style + 'px' }">
-                <Footer></Footer>
-            </el-footer>
+          <!-- 主体部分 -->
+          <el-main></el-main>
         </el-container>
-    </div>
+      </el-container>
+      <!-- 底部区域 -->
+      <el-footer class="footerWrapper"><Footer></Footer></el-footer>
+    </el-container>
+  </div>
 </template>
 
 <script>
-import Footer from '../components/footer.vue'
+import menuListJson from "../../static/menuMockData/menuMock.json";
 export default {
-    data() {
-        return {
-            // 组件高度
-            header_style: 100,
-            footer_style: 30,
-            // mian动态高度
-            screenHeight: "",
-            // 输入框内容
-            form: {
-                inputValue: ""
-            }
-        };
+  data() {
+    return {
+      menuListJson: menuListJson,
+      dropdownList: menuListJson,
+    //   是否折叠
+    isCollapse: false,
+    };
+  },
+  methods: {
+    // 下拉菜单点击事件
+    handleCommand(command) {
+      // 551展开菜单,552个人中心,553退出登录
+      switch (command) {
+        case 551:
+          this.isCollapse = true;
+          break;
+        case 552:
+          alert("个人中心");
+          break;
+        case 553:
+          alert("退出登录");
+          break;
+        case 554:
+          alert("文件查询");
+          break;
+        case 555:
+          alert("客服中心");
+          break;
+        case 556:
+          alert("默认主题");
+          break;
+        default:
+          break;
+      }
     },
-    components: { Footer },
-
-    methods: {
-        // 获取屏幕高度信息
-        getViewHeight() {
-            const screenHeight = this.$getViewSize().height - (this.header_style + this.footer_style);
-            this.screenHeight = screenHeight;
-        },
-        // 搜索组装批
-        searchBatchCode() {
-            if (this.form.inputValue == "") {
-                if (document.getElementsByClassName('el-message').length > 1) return;
-                this.$message({
-                    message: "输入内容为空,请重新输入",
-                    type: "error",
-                    center: true,
-                    duration: 1000
-                })
-                return;
-            } else {
-                this.$nextTick(() => {
-                    this.$refs.input.blur()
-                })
-                if (document.getElementsByClassName('el-message').length > 1) return;
-                this.$message({
-                    message: "Success",
-                    type: "success",
-                    center: true,
-                    duration: 1000
-                });
-                console.log(this.form.inputValue);
-            }
-        }
-    },
-    // 输入框内容自动转化为大写
-    computed: {
-        'inputValueChange': {
-            get: function () {
-                return this.form.inputValue;
-            },
-            set: function (val) {
-                this.form.inputValue = val.toUpperCase();
-            }
-        }
-    },
-    mounted() {
-        this.getViewHeight();
-        window.addEventListener("resize", this.getViewHeight);
-    },
-    destroyed() {
-        window.removeEventListener("resize", this.getViewHeight, false);
-    },
-}
+  },
+};
 </script>
 
 <style scoped>
-.el-header {
-    background-color: #B3C0D1;
-    color: #333;
-}
-
-.el-main {
-    width: 100%;
-    background-color: #E9EEF3;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-}
-
+.el-header,
 .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #b3c0d1;
+  color: #333;
 }
 
-.searchWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120px;
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
 }
-
-.searchInputStyle>>>.el-input__inner {
-    width: 800px;
-    border-radius: 0px;
-    text-align: center;
+.layouWrapper {
+  height: 100vh !important;
 }
-
-.confirmBtn>>>.el-button {
-    border-radius: 0px;
-    width: 100px;
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  height: 40px !important;
 }
-
-.containerWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.footerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px !important;
 }
-
-.containerWrapper>>>.el-card {
-    width: 1400px;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.headerContainer {
+  display: flex;
+  align-items: center;
+}
+.headerLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.el-dropdown-link {
+  margin-left: 10px;
+  cursor: pointer;
 }
 </style>

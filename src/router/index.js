@@ -16,8 +16,8 @@ export default new Router({
     {
       // 默认路由重定向
       path: '/',
-      // redirect: "/Pages/HelloWorld",
-      redirect: "/Pages/MainPage"
+      redirect: "/Pages/HelloWorld",
+      // redirect: "/Pages/MainPage"
     },
     // 默认HelloWorld为登陆界面
     {

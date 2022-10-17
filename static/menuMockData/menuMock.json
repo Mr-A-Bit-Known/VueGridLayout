@@ -1,0 +1,111 @@
+{
+    "menuList": [
+        {
+            "id": 1,
+            "name": "用户管理",
+            "path": "/UserManagement",
+            "children": [
+                {
+                    "id": 11,
+                    "name": "用户列表",
+                    "path": "/UserList"
+                },
+                {
+                    "id": 12,
+                    "name": "部门管理",
+                    "path": "/",
+                    "children": [
+                        {
+                            "id": 1,
+                            "name": "部门权限管理",
+                            "path": "/"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "商品管理",
+            "path": "/ProductManagement",
+            "children": [
+                {
+                    "id": 21,
+                    "name": "商品列表",
+                    "path": "/ProductList"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "文档管理",
+            "path": "/DocumentManagement",
+            "children": [
+                {
+                    "id": 31,
+                    "name": "文件审批",
+                    "path": "/"
+                },
+                {
+                    "id": 32,
+                    "name": "文件管理",
+                    "path": "/"
+                }
+            ]
+        }
+    ],
+    "dropdownList": [
+        {
+            "id": 55,
+            "name": "系统(S)",
+            "children": [
+                {
+                    "id": 551,
+                    "name": "收缩菜单"
+                },
+                {
+                    "id": 552,
+                    "name": "个人中心"
+                },
+                {
+                    "id": 553,
+                    "name": "退出登录"
+                }
+            ]
+        },
+        {
+            "id": 56,
+            "name": "文件(F)",
+            "children": [
+                {
+                    "id": 554,
+                    "name": "文件查询"
+                }
+            ]
+        },
+        {
+            "id": 57,
+            "name": "帮助(H)",
+            "children": [
+                {
+                    "id": 555,
+                    "name": "客服中心"
+                }
+            ]
+        },
+        {
+            "id": 58,
+            "name": "主题(T)",
+            "children": [
+                {
+                    "id": 556,
+                    "name": "默认主题"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "msg": "获取菜单列表成功",
+        "code": 200
+    }
+}

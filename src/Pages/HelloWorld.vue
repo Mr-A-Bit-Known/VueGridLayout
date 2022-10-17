@@ -1,6 +1,6 @@
 <template>
   <div class="parent">
-    <el-container>
+    <el-container class="helloworldWrapper">
       <el-header class="Header" :style="{ height: this.headerHeight + 'px' }"
         ><Header></Header
       ></el-header>
@@ -13,12 +13,13 @@
                   :model="userInfoForm"
                   label-width="0px"
                   class="login_form"
+                  :rules="LoginFromRules"
                 >
                   <div class="titleWrapper">
-                    <img src="../../static/史努比.png" alt="" />
+                    <img v-lazy src="../../static/史努比.png" alt="" />
                     <div class="login_title">用户登录注册界面</div>
                   </div>
-                  <el-form-item class="login_username">
+                  <el-form-item class="login_username" prop="username">
                     <el-input
                       v-model="userInfoForm.username"
                       placeholder="请输入用户名"
@@ -26,7 +27,7 @@
                       clearable
                     ></el-input>
                   </el-form-item>
-                  <el-form-item class="login_password">
+                  <el-form-item class="login_password" prop="password">
                     <el-input
                       v-model="userInfoForm.password"
                       placeholder="请输入密码"
@@ -65,9 +66,9 @@
           </div>
         </div>
       </el-main>
-       <el-footer class="Footer" :style="{ height: this.footerHeight + 'px' }">
-      <Footer></Footer>
-    </el-footer>
+      <el-footer class="Footer" :style="{ height: this.footerHeight + 'px' }">
+        <Footer></Footer>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -88,68 +89,31 @@ export default {
         username: "",
         password: "",
       },
+      // 表单校验规则
+      LoginFromRules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+      },
     };
   },
   methods: {
-    // 获取屏幕高度信息
-    getViewHeight() {
-      const screenHeight = this.$getViewSize().height - (this.headerHeight + this.footerHeight);
-      this.screenHeight = screenHeight;
-    },
     // 键盘回车事件
-    keyupEnter() {
-      
-    },
+    keyupEnter() {},
     // 表单提交
     submit() {
-      if(this.userInfoForm.username == "" && this.userInfoForm.password == "") {
-        // 控制弹窗的数量
-        if(document.getElementsByClassName('el-message').length > 1) return;
-        this.$message({
-          message: "用户名及密码不能为空...",
-          type: "error",
-          center: true,
-          duration: 1000
-        })
-        return;
-      }else if(this.userInfoForm.username != "" && this.userInfoForm.password == ""){
-        if(document.getElementsByClassName('el-message').length > 1) return;
-        this.$message({
-          message: "密码不能为空...",
-          type: "error",
-          center: true,
-          duration: 1000
-        })
-        return;
-      }else if (this.userInfoForm.username == "" && this.userInfoForm.password != "") {
-        if(document.getElementsByClassName('el-message').length > 1) return;
-        this.$message({
-          message: "用户名不能为空...",
-          type: "error",
-          center: true,
-          duration: 1000
-        })
-        return;
-      }else {
-        this.$router.push({path: "/Pages/HomePage"});
-      }
+      this.$router.push({ path: "/Pages/HomePage" });
     },
     // 注册账号
     registerAccountFun() {
-      this.$router.push({path: "/Pages/Register"});
+      this.$router.push({ path: "/Pages/Register" });
     },
     // 找回密码
     passwordGetBack() {
       this.$router.push({ path: "/Pages/PasswordGetBack" });
     },
   },
-  mounted() {
-    this.getViewHeight();
-    window.addEventListener("resize", this.getViewHeight);
-  },
-  destroyed() {
-    window.removeEventListener("resize", this.getViewHeight, false);
-  },  
   // 事件监听
   watch: {},
 };
@@ -174,6 +138,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.helloworldWrapper {
+  height: 100vh;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .boxWrapper {
   width: 1200px;

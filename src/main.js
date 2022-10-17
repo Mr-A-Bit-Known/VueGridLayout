@@ -7,8 +7,15 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+// 状态管理
+import store from './store';
 // 去除CSS默认样式
 import '../src/javascript/index.css';
+
+// 图片懒加载
+import lazy from './directive/lazy';
+
+Vue.directive('lazy', lazy);
 
 Vue.use(ElementUI);
 
@@ -20,17 +27,10 @@ import NavBar from '../src/components/navBar';
 
 Vue.component('Header', Header);
 Vue.component('Footer', Footer);
-Vue.component('NavHeader',NavHeader);
-Vue.component('NavBar',NavBar);
+Vue.component('NavHeader', NavHeader);
+Vue.component('NavBar', NavBar);
 
 
-// 动态获取屏幕高度和宽度
-Vue.prototype.$getViewSize = function () {
-  return {
-    width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, // 宽度
-    height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight // 高度
-  }
-}
 
 Vue.config.productionTip = false
 
@@ -38,6 +38,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
