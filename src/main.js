@@ -12,10 +12,6 @@ import store from './store';
 // 去除CSS默认样式
 import '../src/javascript/index.css';
 
-// 图片懒加载
-import lazy from './directive/lazy';
-
-Vue.directive('lazy', lazy);
 
 Vue.use(ElementUI);
 

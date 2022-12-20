@@ -1,10 +1,10 @@
 <template>
   <div class="registerWrapper">
     <el-container class="registerFormWrapper">
-      <el-header class="Header" :style="{ height: this.headerHeight + 'px' }">
+      <el-header class="Header">
         <div class="container">
           <div class="containerLeft">
-            <img v-lazy src="../../static/史努比-128.png" alt="主题图片" />
+            <img src="../../static/史努比-128.png" alt="主题图片" />
             <div>新用户注册</div>
           </div>
         </div>
@@ -14,27 +14,28 @@
           </div>
         </div>
       </el-header>
-      <el-main class="Main" :style="{ height: this.screenHeight + 'px' }">
+      <el-main class="Main">
         <div class="registerBoxWrapper">
           <div class="registerBoxContainer">
             <div class="registerBoxContainerHead"></div>
             <div class="formWrapper">
-              <el-form label-width="80px">
+              <el-form
+                label-width="80px"
+                :model="loginNumberList"
+                :rules="rules"
+                ref="loginNumberList"
+              >
                 <div class="phoneNumberWrapper">
-                  <el-form-item label="手机号码">
+                  <el-form-item label="手机号码" prop="phoneNumber">
                     <el-input
                       placeholder="请输入你的手机号码"
-                      v-model="loginNumberList.inputValue"
+                      v-model="loginNumberList.phoneNumber"
                       clearable
                     >
-                      <el-select
-                        v-model="select"
-                        slot="prepend"
-                        placeholder="请选择"
-                      >
+                      <el-select v-model="select" slot="prepend">
                         <el-option
-                          v-for="item in selectOptions"
-                          :key="item.value"
+                          v-for="item in this.menuListJson.selectOptions"
+                          :key="item.id"
                           :label="item.label"
                           :value="item.value"
                           @change="$forceUpdate()"
@@ -42,20 +43,11 @@
                       </el-select>
                     </el-input>
                   </el-form-item>
-                  <!-- <div
-                    class="reminderMsg"
-                    id="phoneNumberBox"
-                    v-if="this.phoneNumberNull"
-                  >
-                    手机号码不能为空
-                  </div> -->
-                  <!-- <div class="reminderMsg" v-if="this.phoneNumberLengthIncorrecrt">手机号码最多不超过11位</div>
-                <div class="reminderMsg" v-if="this.phoneNumberFormatIncorrect">手机格式不正确</div> -->
                 </div>
                 <div class="phoneNumberWrapper">
-                  <el-form-item label="验证码">
+                  <el-form-item label="验证码" prop="verificationCode">
                     <el-input
-                      v-model="loginNumberList.varifyCode"
+                      v-model="loginNumberList.verificationCode"
                       class="varifyCode"
                       placeholder="请输入短信验证码"
                       clearable
@@ -75,8 +67,6 @@
                       </template>
                     </el-input>
                   </el-form-item>
-                  <!-- <div class="reminderMsg" id="varifyCodeBox" v-if="this.varifyCodeNull">验证码不能为空</div> -->
-                  <!-- <div class="reminderMsg" v-if="this.varifyCodeFormatIncorrect">验证码格式不正确</div> -->
                 </div>
                 <el-form-item>
                   <div>
@@ -109,121 +99,53 @@
           <div></div>
         </div>
       </el-main>
-      <el-footer class="Footer" :style="{ height: this.footerHeight + 'px' }"
-        ><Footer></Footer
-      ></el-footer>
+      <el-footer class="Footer"><Footer></Footer></el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
-// import moment from "moment";
+import menuListJson from "../../static/menuMockData/menuMock.json";
+import { phoneNumberRule } from "../javascript/vaildate";
 export default {
+  created() {
+    this.selectOptionsAchieve();
+  },
   data() {
     return {
-      // 组件高度
-      headerHeight: 160,
-      footerHeight: 30,
-      // screenWidth: "",
-      screenHeight: "",
-      // 电话信息下拉框选项
-      selectOptions: [
-        {
-          value: "选项1",
-          label: "中国大陆 +86",
-        },
-        {
-          value: "选项2",
-          label: "中国香港 +852",
-        },
-        {
-          value: "选项3",
-          label: "中国澳门 +853",
-        },
-        {
-          value: "选项4",
-          label: "中国台湾 +886",
-        },
-      ],
-      // 下拉菜单默认选项
-      select: "选项1",
+      // 下拉选项框静态数据
+      menuListJson: menuListJson,
+      select: "",
       // form表单信息
       loginNumberList: {
-        inputValue: "",
-        varifyCode: "",
+        phoneNumber: "",
+        verificationCode: "",
         // 服务条款是否勾选
         checked: false,
       },
       // 验证码Btn显示
       show: true,
-      count: "",
-      timer: null,
-      // 手机号码为空
-      // phoneNumberNull: false,
-      // // 手机号码格式不正确
-      // phoneNumberFormatIncorrect: false,
-      // 验证码为空
-      // varifyCodeNull: false,
-      // // 验证码格式不正确
-      // varifyCodeFormatIncorrect: false,
-      // // 手机号码长度不正确
-      // phoneNumberLengthIncorrecrt: false,
-      // 输入框内容监听
-      phoneNumberInput: "",
-      // 验证是否输入验证码
+      // 注册按钮置灰
       disabled: true,
-      // 时间
-      date: "",
-      time: "",
-      weekOfDay: "",
+      // 表单验证
+      rules: { phoneNumber: [{ validator: phoneNumberRule, trigger: "blur" }] },
     };
   },
   methods: {
+    // 获取号码归属地静态数据
+    selectOptionsAchieve() {
+      const item = this.menuListJson.selectOptions;
+      const arr = [];
+      arr.push(item);
+      this.select = arr[0][0].value;
+    },
+    // 获取验证码
+    varifyCodeAchieve() {
+      this.$refs[loginNumberList].vaildate();
+    },
     // 返回登录页
     returnLoginPage() {
       this.$router.push("../Pages/HelloWorld");
-    },
-    // 获取时间
-    // getTimeData() {
-    //   const date = this.$getTimeDate().date;
-    //   const time = this.$getTimeDate().time;
-    //   this.date = date;
-    //   this.time = time;
-    //   this.timer = setTimeout(() => {
-    //     this.getTimeData();
-    //   }, 1000);
-    // },
-    // 验证码60S 倒计时
-    // 获取验证码
-    varifyCodeAchieve() {
-      const regMobile =
-        /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
-      if (!regMobile.test(this.loginNumberList.inputValue)) {
-        if (document.getElementsByClassName("el-message").length > 1) return;
-        this.$message({
-          message: "手机号码格式不正确...",
-          type: "error",
-          center: true,
-          duration: 1000,
-        });
-      } else {
-        alert("Achiece Success...");
-      }
-      const reqMobile = /^1[3|4|5|7|8][0-9]{9}$/;
-      if (this.loginNumberList.inputValue == "") {
-        this.phoneNumberNull = true;
-        return;
-      } else if (!reqMobile.test(this.loginNumberList.inputValue)) {
-        if (document.getElementsByClassName("el-message").length > 1) return;
-        this.$message({
-          message: "手机号码格式不正确...",
-          type: "error",
-          center: true,
-        });
-        return;
-      } else {
-        console.log("Achieve Success...");
-      }
     },
     // 确认注册
     RegisterConfirm() {
@@ -241,21 +163,6 @@ export default {
       window.open("../Pages/ServiceDetailInfoList");
     },
   },
-  // 输入框数据监听
-  watch: {
-    "loginNumberList.inputValue": {
-      handler(newVal, oldVal) {
-        if (this.loginNumberList.inputValue != "" && this.loginNumberList.varifyCode != "") {
-          this.disabled = false;
-        } else {
-          this.disabled = true;
-        }
-      },
-      "loginNumberList.varifyCode": {
-        handler(newVal, oldVal) {},
-      },
-    },
-  },
 };
 </script>
 
@@ -267,6 +174,7 @@ export default {
   justify-content: center;
 }
 .Header {
+  height: 160px !important;
   background-color: #b3c0d1;
   display: flex;
   flex-direction: column;
@@ -276,8 +184,8 @@ export default {
 }
 .registerFormWrapper {
   height: 100vh;
-  padding: 0!important;
-  margin: 0!important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .accountAlreadyWrapper {
   width: 60%;
@@ -299,6 +207,7 @@ export default {
   justify-content: center;
 }
 .Footer {
+  height: 30px !important;
   background-color: #b3c0d1;
   display: flex;
   justify-content: center;

@@ -31,7 +31,12 @@
       <!-- 侧边栏 -->
       <el-container>
         <el-aside width="200px">
-          <el-menu background-color="#545c64" text-color="#fff" :collapse="isCollapse" unique-opened>
+          <el-menu
+            background-color="#545c64"
+            text-color="#fff"
+            :collapse="isCollapse"
+            unique-opened
+          >
             <el-submenu
               :index="item.id + ' '"
               v-for="item in menuListJson.menuList"
@@ -79,15 +84,27 @@
 <script>
 import menuListJson from "../../static/menuMockData/menuMock.json";
 export default {
+  created() {
+    this.systemInfoAchieve();
+  },
   data() {
     return {
       menuListJson: menuListJson,
-      dropdownList: menuListJson,
-    //   是否折叠
-    isCollapse: false,
+      //   是否折叠
+      isCollapse: false,
+      // 版本信息
+      systemInfoAbout: "",
+      // 联系方式
+      phoneNumber: "",
     };
   },
   methods: {
+    // 获取静态数据
+    systemInfoAchieve() {
+      const element = this.menuListJson.systemInfoList;
+      this.systemInfoAbout = element.systemVersion;
+      this.phoneNumber = element.phoneNumber;
+    },
     // 下拉菜单点击事件
     handleCommand(command) {
       // 551展开菜单,552个人中心,553退出登录
@@ -105,7 +122,18 @@ export default {
           alert("文件查询");
           break;
         case 555:
-          alert("客服中心");
+          this.$notify({
+            title: "系统信息",
+            type: "success",
+            dangerouslyUseHTMLString: true,
+            duration: 2000,
+            message: (
+              <div>
+                <h4>系统当前版本: V {this.systemInfoAbout}</h4>
+                <h4>联系电话: {this.phoneNumber}</h4>
+              </div>
+            ),
+          });
           break;
         case 556:
           alert("默认主题");

@@ -10,7 +10,7 @@ export default {};
 .wrapper {
   display: flex;
   justify-content: center;
-  font-size: 26px;
+  font-size: 60px;
   font-weight: bold;
 }
 </style>

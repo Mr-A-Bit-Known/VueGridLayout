@@ -1,12 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '../Pages/HelloWorld.vue'
-import Register from '../Pages/Register.vue'
-import PagesNotFound from '../Pages/PagesNotFound.vue'
-import PasswordGetBack from '../Pages/PasswordGetBack.vue'
-import ServiceDetailInfoList from '../Pages/ServiceDetailInfoList.vue'
-import Homepage from '../Pages/Homepage.vue'
-import MainPage from '../Pages/MainPage' 
 
 Vue.use(Router)
 
@@ -17,49 +10,43 @@ export default new Router({
       // 默认路由重定向
       path: '/',
       redirect: "/Pages/HelloWorld",
-      // redirect: "/Pages/MainPage"
+      component: resolve => require(['@/Pages/HelloWorld'], resolve)
     },
     // 默认HelloWorld为登陆界面
     {
       path: "/Pages/HelloWorld",
-      naem: "HelloWorld",
-      component: HelloWorld
+      component: resolve => require(['@/Pages/HelloWorld'], resolve)
     },
     // 注册界面
     {
       path: '/Pages/register',
-      name: 'Register',
-      component: Register
-    },
-    // 404
-    {
-      path: "/Pages/404",
-      name: "PagesNotFound",
-      component: PagesNotFound
+      component: resolve => require(['@/Pages/Register'], resolve)
     },
     // 密码找回
     {
       path: "/Pages/PasswordGetBack",
-      name: "PasswordGetBack",
-      component: PasswordGetBack
+      component: resolve => require(['@/Pages/PasswordGetBack'], resolve)
     },
     // 服务条款详情
     {
       path: "/Pages/ServiceDetailInfoList",
-      name: "ServiceDetailInfoList",
-      component: ServiceDetailInfoList
+      component: resolve => require(['@/Pages/ServiceDetailInfoList'], resolve)
     },
     // 扫码界面 
     {
       path: "/Pages/Homepage",
-      name: "Homepage",
-      component: Homepage
+      component: resolve => require(['@/Pages/Homepage'], resolve)
     },
     // 主界面
     {
       path: "/Pages/MainPage",
-      name: "MainPage",
-      component: MainPage
-    }
+      component: resolve => require(['@/Pages/MainPage'], resolve)
+    },
+
+    // 404重定向
+    {
+      path: "*",
+      component: resolve => require(['@/Pages/PagesNotFound'], resolve)
+    },
   ]
 })

@@ -1,10 +1,8 @@
 <template>
   <div class="parent">
     <el-container class="helloworldWrapper">
-      <el-header class="Header" :style="{ height: this.headerHeight + 'px' }"
-        ><Header></Header
-      ></el-header>
-      <el-main class="Main" :style="{ height: this.screenHeight + 'px' }">
+      <el-header class="Header"><Header></Header></el-header>
+      <el-main class="Main">
         <div class="boxWrapper">
           <div class="register_login_box">
             <div class="login_container">
@@ -14,10 +12,11 @@
                   label-width="0px"
                   class="login_form"
                   :rules="LoginFromRules"
+                  ref="userInfoForm"
                 >
                   <div class="titleWrapper">
-                    <img v-lazy src="../../static/史努比.png" alt="" />
-                    <div class="login_title">用户登录注册界面</div>
+                    <!-- <img src="../../static/史努比.png" alt="" /> -->
+                    <div class="login_title">用户登录注册</div>
                   </div>
                   <el-form-item class="login_username" prop="username">
                     <el-input
@@ -33,7 +32,7 @@
                       placeholder="请输入密码"
                       type="password"
                       prefix-icon="el-icon-lock"
-                      @keydown.enter.native="submit"
+                      @keydown.enter.native="submit('userInfoForm')"
                       clearable
                     ></el-input>
                   </el-form-item>
@@ -42,8 +41,7 @@
                       <el-button
                         class="login_button"
                         type="primary"
-                        @click="submit"
-                        @keyup.enter.native="submit"
+                        @click="submit('userInfoForm')"
                         >登录</el-button
                       >
                     </div></el-form-item
@@ -66,7 +64,7 @@
           </div>
         </div>
       </el-main>
-      <el-footer class="Footer" :style="{ height: this.footerHeight + 'px' }">
+      <el-footer class="Footer">
         <Footer></Footer>
       </el-footer>
     </el-container>
@@ -74,16 +72,13 @@
 </template>
 
 <script>
+import { nameRule, passwordRule } from "../javascript/vaildate";
 export default {
   created() {
     this.keyupEnter();
   },
   data() {
     return {
-      headerHeight: 40,
-      footerHeight: 30,
-      // screenWidth: "",
-      screenHeight: "",
       // 表单数据
       userInfoForm: {
         username: "",
@@ -91,10 +86,8 @@ export default {
       },
       // 表单校验规则
       LoginFromRules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-        ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        username: [{ validator: nameRule, trigger: "blur" }],
+        password: [{ validator: passwordRule, trigger: "blur" }],
       },
     };
   },
@@ -102,8 +95,15 @@ export default {
     // 键盘回车事件
     keyupEnter() {},
     // 表单提交
-    submit() {
+    submit(userInfoForm) {
       this.$router.push({ path: "/Pages/HomePage" });
+      this.$refs[userInfoForm].validate((valid) => {
+        if (valid) {
+        } else {
+          console.error("Error Submit");
+          return false;
+        }
+      });
     },
     // 注册账号
     registerAccountFun() {
@@ -124,6 +124,7 @@ export default {
   background-color: #b3c0d1;
   display: flex;
   align-items: center;
+  height: 40px !important;
 }
 
 .el-main {
@@ -138,6 +139,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 30px !important;
 }
 .helloworldWrapper {
   height: 100vh;
