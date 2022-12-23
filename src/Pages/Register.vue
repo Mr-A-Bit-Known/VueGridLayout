@@ -32,7 +32,7 @@
                       v-model="loginNumberList.phoneNumber"
                       clearable
                     >
-                      <el-select v-model="select" slot="prepend">
+                      <!-- <el-select v-model="select" slot="prepend">
                         <el-option
                           v-for="item in this.menuListJson.selectOptions"
                           :key="item.id"
@@ -40,32 +40,21 @@
                           :value="item.value"
                           @change="$forceUpdate()"
                         ></el-option>
-                      </el-select>
+                      </el-select> -->
                     </el-input>
                   </el-form-item>
                 </div>
-                <div class="phoneNumberWrapper">
+                <div class="verificationCodeWrapper">
                   <el-form-item label="验证码" prop="verificationCode">
                     <el-input
+                      placeholder="请输入验证码"
+                      :disabled="btnDisabled"
                       v-model="loginNumberList.verificationCode"
-                      class="varifyCode"
-                      placeholder="请输入短信验证码"
-                      clearable
                     >
-                      <template slot="append">
-                        <el-button
-                          v-if="show"
-                          class="varifyCodeAchieve"
-                          @click="varifyCodeAchieve()"
-                          >获取验证码</el-button
-                        >
-                        <el-button
-                          v-if="!show"
-                          class="varifyCodeAchieveForbidden"
-                          >重新获取({{ this.count }}S)</el-button
-                        >
-                      </template>
                     </el-input>
+                    <el-button @click="varifyCodeAchieve('loginNumberList')"
+                      >获取验证码</el-button
+                    >
                   </el-form-item>
                 </div>
                 <el-form-item>
@@ -109,7 +98,7 @@ import menuListJson from "../../static/menuMockData/menuMock.json";
 import { phoneNumberRule } from "../javascript/vaildate";
 export default {
   created() {
-    this.selectOptionsAchieve();
+    // this.selectOptionsAchieve();
   },
   data() {
     return {
@@ -129,19 +118,27 @@ export default {
       disabled: true,
       // 表单验证
       rules: { phoneNumber: [{ validator: phoneNumberRule, trigger: "blur" }] },
+      // 验证码获取按钮置灰
+      btnDisabled: true,
     };
   },
   methods: {
-    // 获取号码归属地静态数据
-    selectOptionsAchieve() {
-      const item = this.menuListJson.selectOptions;
-      const arr = [];
-      arr.push(item);
-      this.select = arr[0][0].value;
-    },
+    // // 获取号码归属地静态数据
+    // selectOptionsAchieve() {
+    //   const item = this.menuListJson.selectOptions;
+    //   const arr = [];
+    //   arr.push(item);
+    //   this.select = arr[0][0].value;
+    // },
     // 获取验证码
-    varifyCodeAchieve() {
-      this.$refs[loginNumberList].vaildate();
+    varifyCodeAchieve(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+        } else {
+          console.error("Error Submit");
+          return false;
+        }
+      });
     },
     // 返回登录页
     returnLoginPage() {
@@ -161,6 +158,27 @@ export default {
     // 服务条款阅读
     serviceDetailInfoList() {
       window.open("../Pages/ServiceDetailInfoList");
+    },
+  },
+  // 事件监听
+  watch: {
+    "loginNumberList.phoneNumber": {
+      handler(newVal, oldVal) {
+        if (newVal != "") {
+          this.btnDisabled = false;
+        } else {
+          this.btnDisabled = true;
+        }
+      },
+    },
+    "loginNumberList.verificationCode": {
+      handler(newVal, oldVal) {
+        if (newVal != "") {
+          this.disabled = false;
+        } else {
+          this.disabled = true;
+        }
+      },
     },
   },
 };
@@ -270,6 +288,9 @@ export default {
 }
 .phoneNumberWrapper {
   display: flex;
+}
+.verificationCodeWrapper .el-input {
+  width: 285px !important;
 }
 .reminderMsg {
   height: 40px;

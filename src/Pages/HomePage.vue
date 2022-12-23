@@ -116,7 +116,8 @@ export default {
           alert("个人中心");
           break;
         case 553:
-          alert("退出登录");
+          this.$router.push("../Pages/HelloWorld"); // 退出登录
+
           break;
         case 554:
           alert("文件查询");
@@ -133,7 +134,7 @@ export default {
                 <h4>联系电话: {this.phoneNumber}</h4>
               </div>
             ),
-          });
+          }); // 系统概要
           break;
         case 556:
           alert("默认主题");

@@ -32,7 +32,7 @@ export default new Router({
       path: "/Pages/ServiceDetailInfoList",
       component: resolve => require(['@/Pages/ServiceDetailInfoList'], resolve)
     },
-    // 扫码界面 
+    // 管理界面 
     {
       path: "/Pages/Homepage",
       component: resolve => require(['@/Pages/Homepage'], resolve)
@@ -43,7 +43,7 @@ export default new Router({
       component: resolve => require(['@/Pages/MainPage'], resolve)
     },
 
-    // 404重定向
+    // 404
     {
       path: "*",
       component: resolve => require(['@/Pages/PagesNotFound'], resolve)
