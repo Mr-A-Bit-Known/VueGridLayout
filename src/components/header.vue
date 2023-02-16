@@ -8,13 +8,15 @@
         <img src="../../static/史努比.png" />
         <div class="textCenter">点我看当前时间哦...</div>
       </div>
-      <div class="dateWrapper" v-if="this.showOrBlock">{{ globalDate + '/' + globalTime }}</div>
+      <div class="dateWrapper" v-if="this.showOrBlock">
+        {{ globalDate + " " + globalTime }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState,mapMutations} from 'vuex';
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -31,7 +33,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['getNowDate']),
+    ...mapMutations(["getNowDate"]),
     // 显示时间
     showTimeStamp() {
       this.showOrBlock = true;
@@ -43,7 +45,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['globalDate','globalTime'])
+    ...mapState(["globalDate", "globalTime"]),
   },
   destroyed() {
     // 清除计时器

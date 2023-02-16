@@ -1,4 +1,5 @@
 <template>
+  <!-- 系统帮助菜单组件 -->
   <div class="registerWrapper">
     <el-container class="registerFormWrapper">
       <el-header class="Header">
@@ -52,7 +53,9 @@
                       v-model="loginNumberList.verificationCode"
                     >
                     </el-input>
-                    <el-button @click="varifyCodeAchieve('loginNumberList')"
+                    <el-button
+                      :disabled="btnEnabled"
+                      @click="varifyCodeAchieve('loginNumberList')"
                       >获取验证码</el-button
                     >
                   </el-form-item>
@@ -120,6 +123,7 @@ export default {
       rules: { phoneNumber: [{ validator: phoneNumberRule, trigger: "blur" }] },
       // 验证码获取按钮置灰
       btnDisabled: true,
+      btnEnabled: true,
     };
   },
   methods: {
@@ -166,8 +170,10 @@ export default {
       handler(newVal, oldVal) {
         if (newVal != "") {
           this.btnDisabled = false;
+          this.btnEnabled = false;
         } else {
           this.btnDisabled = true;
+          this.btnEnabled = true;
         }
       },
     },

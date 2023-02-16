@@ -56,7 +56,10 @@
 </template>
 
 <script>
-import { passwordGetBack } from "../javascript/vaildate";
+// 校验规则
+import { passwordGetBack, phoneNumberRule } from "../javascript/vaildate";
+// 防抖
+import antiShake from "../../Utils/antiShake";
 export default {
   data() {
     // 两次输入密码是否一致校验
@@ -69,19 +72,6 @@ export default {
         callback();
       }
     };
-    // 检查手机号码是否存在
-    var checkPhoneNumber = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("请输入手机号码"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          callback();
-        }
-      }, 1000);
-    };
     return {
       // 表单数据
       form: {
@@ -91,7 +81,7 @@ export default {
       },
       // 校验规则
       rules: {
-        phoneNumber: [{ validator: checkPhoneNumber, trigger: "blur" }],
+        phoneNumber: [{ validator: phoneNumberRule, trigger: "blur" }],
         password: [{ validator: passwordGetBack, trigger: "blur" }],
         passwordReload: [{ validator: passwordReLoad, trigger: "blur" }],
       },
@@ -103,7 +93,7 @@ export default {
       this.$router.push("../Pages/HelloWorld");
     },
     // 表单提交
-    confirm(form) {
+    confirm: antiShake(function (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
           console.log(this.form);
@@ -112,7 +102,7 @@ export default {
           return false;
         }
       });
-    },
+    }, 500),
   },
 };
 </script>

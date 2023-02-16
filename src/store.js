@@ -10,6 +10,9 @@ export default new Vuex.Store({
         // 显示当前时间节点
         globalDate: moment().format("YYYY-MM-DD"), // 年份
         globalTime: moment().format("HH:mm:ss"), // 时间
+
+        // token
+        token: ''
     },
     // getters为state的计算属性
     getters: {
@@ -20,10 +23,16 @@ export default new Vuex.Store({
         // 获取当前时间
         getNowDate(state) {
             state.globalDate,
-            state.globalTime
+                state.globalTime
+        },
+
+        // 设置token
+        SET_TOKEN: (state, token) => {
+            state.token = token
+            localStorage.setItem("token", token)
         }
     },
-    // actions提交mutations，异步操作
+    // actions提交mutations，异步操作   
     actions: {
         getNowDateAsync(context) {
             setInterval(() => {

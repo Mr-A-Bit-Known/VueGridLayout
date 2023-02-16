@@ -9,17 +9,17 @@
                 {
                     "id": 11,
                     "name": "用户列表",
-                    "path": "/UserList"
+                    "path": "/UserManagement/UserList"
                 },
                 {
                     "id": 12,
                     "name": "部门管理",
-                    "path": "/",
+                    "path": "/UserManagement/DepartmentManagement",
                     "children": [
                         {
                             "id": 1,
                             "name": "部门权限管理",
-                            "path": "/"
+                            "path": "/UserManagement/DepartmentPowerManagement"
                         }
                     ]
                 }
@@ -33,7 +33,7 @@
                 {
                     "id": 21,
                     "name": "商品列表",
-                    "path": "/ProductList"
+                    "path": "/ProductManagement/ProductList"
                 }
             ]
         },
@@ -45,14 +45,19 @@
                 {
                     "id": 31,
                     "name": "文件审批",
-                    "path": "/"
+                    "path": "/DocumentManagement/DocumentApproval"
                 },
                 {
                     "id": 32,
                     "name": "文件管理",
-                    "path": "/"
+                    "path": "/DocumentManagement/FilesManagement"
                 }
             ]
+        },
+        {
+            "id": 4,
+            "name": "其他选项",
+            "path": "/OtherSelection"
         }
     ],
     "注释02": "下拉菜单静态数据",

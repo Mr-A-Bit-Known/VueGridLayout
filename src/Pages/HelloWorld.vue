@@ -11,7 +11,7 @@
                   :model="userInfoForm"
                   label-width="0px"
                   class="login_form"
-                  :rules="LoginFromRules"
+                  :rules="LoginFormRules"
                   ref="userInfoForm"
                 >
                   <div class="titleWrapper">
@@ -72,8 +72,14 @@
 </template>
 
 <script>
+import Header from "../components/header";
+import Footer from "../components/footer";
 import { nameRule, passwordRule } from "../javascript/vaildate";
 export default {
+  components: {
+    Header,
+    Footer,
+  },
   created() {
     this.keyupEnter();
   },
@@ -85,7 +91,7 @@ export default {
         password: "",
       },
       // 表单校验规则
-      LoginFromRules: {
+      LoginFormRules: {
         username: [{ validator: nameRule, trigger: "blur" }],
         password: [{ validator: passwordRule, trigger: "blur" }],
       },
@@ -93,10 +99,12 @@ export default {
   },
   methods: {
     // 键盘回车事件
-    keyupEnter() {},
+    keyupEnter() {
+      
+    },
     // 表单提交
     submit(userInfoForm) {
-      this.$router.push({ path: "/Pages/HomePage" });
+      this.$router.push({ path: "/Pages/MainPage" });
       this.$refs[userInfoForm].validate((valid) => {
         if (valid) {
         } else {

@@ -24,6 +24,14 @@ export function passwordRule(rules, value, callback) {
         callback();
     }
 }
+// 验证码校验规则
+export function validateCodeRule(rules, value, callback) {
+    if (!value) {
+        callback(new Error("请输入验证码"));
+    } else {
+        callback();
+    }
+}
 
 // 手机号码验证
 export function phoneNumberRule(rules, value, callback) {

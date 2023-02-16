@@ -15,18 +15,25 @@ import '../src/javascript/index.css';
 
 Vue.use(ElementUI);
 
-// 全局组件
-import Header from '../src/components/header.vue';
-import Footer from '../src/components/footer.vue';
-import NavHeader from '../src/components/navHeader.vue';
-import NavBar from '../src/components/navBar';
+import axios from './axios';
 
-Vue.component('Header', Header);
-Vue.component('Footer', Footer);
-Vue.component('NavHeader', NavHeader);
-Vue.component('NavBar', NavBar);
+Vue.prototype.$axios = axios;
 
+// mock
 
+require("./mock");
+
+// // 全局注册节流
+// import { reduceExpenditure } from '../Utils/reduceExpenditure';
+// Vue.prototype.$reduceExpenditure = reduceExpenditure;
+
+// // 全局注册百度地图
+
+// import BaiduMap from "vue-baidu-map";
+
+// Vue.use(BaiduMap, {
+//   ak: "1GNT0cXD0Ykmjy5dqzWMG1nRRYrFfYGL"
+// })
 
 Vue.config.productionTip = false
 

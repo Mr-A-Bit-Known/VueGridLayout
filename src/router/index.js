@@ -9,8 +9,13 @@ export default new Router({
     {
       // 默认路由重定向
       path: '/',
-      redirect: "/Pages/HelloWorld",
-      component: resolve => require(['@/Pages/HelloWorld'], resolve)
+      redirect: "/Pages/HomePage",
+      component: resolve => require(['@/Pages/Login'], resolve)
+    },
+    {
+      // 登录页
+      path: "/Pages/Login",
+      component: resolve => require(['@/Pages/Login'], resolve)
     },
     // 默认HelloWorld为登陆界面
     {
