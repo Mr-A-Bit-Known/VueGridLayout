@@ -20,8 +20,6 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <!-- 中间标题部分 -->
-    <div><h3>MES仓库管理系统</h3></div>
   </div>
 </template>
 
@@ -62,12 +60,13 @@ export default {
           break;
         // 个人中心
         case 552:
-          alert("个人中心");
+          this.$alert("<i>姓名:</i>" + this.phoneNumber, "个人中心", {
+            dangerouslyUseHTMLString: true,
+          });
           break;
         // 退出登录
         case 553:
           this.$router.push("../Pages/Login"); // 退出登录
-
           break;
         // 文件查询
         case 554:

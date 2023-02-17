@@ -58,8 +58,6 @@
 <script>
 // 校验规则
 import { passwordGetBack, phoneNumberRule } from "../javascript/vaildate";
-// 防抖
-import antiShake from "../../Utils/antiShake";
 export default {
   data() {
     // 两次输入密码是否一致校验

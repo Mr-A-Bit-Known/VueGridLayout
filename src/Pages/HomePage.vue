@@ -19,7 +19,7 @@
         <el-container>
           <!-- 主体部分 -->
           <el-main>
-             
+            <div id="app">{{ this.name }}</div>
           </el-main>
         </el-container>
       </el-container>
@@ -40,7 +40,9 @@ export default {
     Footer,
   },
   data() {
-    return {};
+    return {
+      name: "",
+    };
   },
   methods: {},
 };
