@@ -6,22 +6,16 @@ import router from './router'
 // ElementUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import axios from 'axios';
 
-// 状态管理
-import store from './store';
 // 去除CSS默认样式
 import '../src/javascript/index.css';
 
-
 Vue.use(ElementUI);
 
-import axios from './axios';
 
 Vue.prototype.$axios = axios;
 
-// mock
-
-require("./mock");
 
 // // 全局注册节流
 // import { reduceExpenditure } from '../Utils/reduceExpenditure';
@@ -41,7 +35,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  store,
   components: { App },
   template: '<App/>'
 })

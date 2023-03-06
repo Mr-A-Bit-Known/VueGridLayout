@@ -1,22 +1,21 @@
 <template>
-    <div class="footerWrapper">
-        Copyright © 2022 Mr-A-Bit-Known All rights reserved.
-    </div>
+  <div class="footerWrapper">
+    Copyright © 2022 Mr-A-Bit-Known All rights reserved.
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-
-        }
-    },
-}
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style scoped>
 .footerWrapper {
-    font-size: 14px;
-    font-weight: bold;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fafafa;
 }
 </style>

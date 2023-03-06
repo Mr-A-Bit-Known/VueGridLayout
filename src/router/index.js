@@ -17,36 +17,22 @@ export default new Router({
       path: "/Pages/Login",
       component: resolve => require(['@/Pages/Login'], resolve)
     },
-    // 注册界面
-    {
-      path: '/Pages/register',
-      component: resolve => require(['@/Pages/Register'], resolve)
-    },
-    // 密码找回
-    {
-      path: "/Pages/PasswordGetBack",
-      component: resolve => require(['@/Pages/PasswordGetBack'], resolve)
-    },
-    // 服务条款详情
-    {
-      path: "/Pages/ServiceDetailInfoList",
-      component: resolve => require(['@/Pages/ServiceDetailInfoList'], resolve)
-    },
-    // 管理界面 
-    {
-      path: "/Pages/Homepage",
-      component: resolve => require(['@/Pages/Homepage'], resolve)
-    },
     // 主界面
     {
       path: "/Pages/MainPage",
-      component: resolve => require(['@/Pages/MainPage'], resolve)
+      component: resolve => require(['@/Pages/MainPage'], resolve),
+      meta: {
+        title: "主界面"
+      }
     },
 
     // 404
     {
       path: "*",
-      component: resolve => require(['@/Pages/PagesNotFound'], resolve)
+      component: resolve => require(['@/Pages/PagesNotFound'], resolve),
+      meta: {
+        title: "页面404"
+      }
     },
   ]
 })

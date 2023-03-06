@@ -6,13 +6,12 @@
 
 <script>
 export default {
+  created() {},
   name: "App",
   data() {
     return {};
   },
-  created() {
-    document.body.removeChild(document.getElementById("loadingAnimation")); // 加载页面完后移除加载动画
-  },
+  methods: {},
 };
 </script>
 
