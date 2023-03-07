@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  created() {},
+  created() {
+    if (document.getElementById("Loading"))
+      document.getElementById("Loading").remove();
+  },
   name: "App",
   data() {
     return {};
@@ -16,8 +19,4 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  margin: 0px;
-  padding: 0px;
-}
 </style>

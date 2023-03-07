@@ -3,13 +3,13 @@
 
 // 账号校验规则
 export function nameRule(rules, value, callback) {
-    // let nameData = /^[\w-]{5}$/;
+    let nameData = /^[\w-]{5}$/;
     if (!value) {
         callback(new Error("请输入用户名"));
     }
-    // else if (!nameData.test(value)) {
-    //     callback(new Error("用户名是5位数"));
-    // } 
+    else if (!nameData.test(value)) {
+        callback(new Error("用户名是5位数"));
+    }
     else {
         callback();
     }
