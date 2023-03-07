@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: "history",
+  // mode: "history",
   routes: [
     {
       // 默认路由重定向
@@ -23,6 +23,14 @@ export default new Router({
       component: resolve => require(['@/Pages/MainPage'], resolve),
       meta: {
         title: "主界面"
+      }
+    },
+    // 注册页面
+    {
+      path: "/Pages/Register",
+      component: resolve => require(['@/Pages/Register'], resolve),
+      meta: {
+        title: "登录页面"
       }
     },
 

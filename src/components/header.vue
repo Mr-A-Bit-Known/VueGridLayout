@@ -3,7 +3,7 @@
     <div class="textWrapper">
       <div class="fontWrapper">忽如一夜春风来,千树万树梨花开...</div>
     </div>
-    <div class="clockWrapper">
+    <div class="linkWrapper">
       <el-link class="textCenter" @click="accountRegister" type="primary"
         >还没有账号?立即注册</el-link
       >
@@ -17,7 +17,7 @@ export default {
     return {};
   },
   methods: {
-    // 账户注册
+    // 账户注册("/Pages/Register")
     accountRegister() {
       this.$router.replace("../Pages/Register");
     },
@@ -27,7 +27,6 @@ export default {
 
 <style scoped>
 .headerWrapper {
-  width: 90%;
   height: 30px !important;
   font-size: 15px;
   font-weight: bold;
@@ -46,6 +45,8 @@ export default {
   justify-content: center;
   font-size: 16px;
   color: black;
-  cursor: pointer;
+}
+.linkWrapper {
+  margin-right: 50px;
 }
 </style>

@@ -1,29 +1,36 @@
 <template>
   <div class="wrapper">
     <el-container class="container">
-      <!-- 头部选项 -->
-      <el-header><Header></Header></el-header>
+      <el-header>
+        <div class="headerLeft">
+          <el-image
+            class="imageTitle"
+            :src="require('../images/Snobi.png')"
+          ></el-image>
+          <h1>新用户注册</h1>
+        </div>
+        <div class="linkTitle">
+          <el-link class="linkStyle" @click="returnLogin"
+            ><h1>已有账户,立即登录</h1></el-link
+          >
+        </div>
+      </el-header>
       <el-main>
-        <!-- 表单内容 -->
-        <div class="formContainer">
-          <div class="containerLeft">
-            <h1>MES仓库管理系统 © 2023</h1>
-            <el-image
-              class="loginImage"
-              :src="require('../images/qrcode_www.bilibili.com.png')"
-            ></el-image>
-            <h3>详情请访问网络地址:172.20.17.10</h3>
-            <h4>扫描二维码查看</h4>
+        <div class="mainWrapper">
+          <div class="contaimerLeft">
+            <h2>Tips:</h2>
+            <h3>用户名可自定义(简短好记)</h3>
+            <h3>密码长度规范不限</h3>
           </div>
           <el-divider direction="vertical"></el-divider>
-          <!-- 登录表单 -->
           <div class="formWrapper">
             <el-form
               :model="Form"
-              :rules="loginFormRules"
+              :rules="registerFromRules"
               ref="Form"
               label-width="100px"
             >
+              <!-- 用户名 -->
               <el-form-item label="用户名" prop="username" style="width: 380px">
                 <el-input
                   placeholder="请输入用户名"
@@ -31,6 +38,7 @@
                   prefix-icon="el-icon-user"
                 ></el-input>
               </el-form-item>
+              <!-- 密码 -->
               <el-form-item label="密码" prop="password" style="width: 380px">
                 <el-input
                   type="password"
@@ -46,57 +54,48 @@
                   type="primary"
                   @click="submitForm('Form')"
                   style="width: 280px; float: left"
-                  >登录</el-button
+                  >确认注册</el-button
                 >
               </el-form-item>
             </el-form>
           </div>
         </div>
       </el-main>
-      <!-- 底部信息 -->
       <el-footer><Footer></Footer></el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
-import Header from "../components/header.vue";
 import Footer from "../components/footer.vue";
 import {
   nameRule,
   passwordRule,
-  // validateCodeRule,
+  phoneNumberRule,
 } from "../javascript/vaildate";
 export default {
   components: {
-    Header,
     Footer,
   },
-  // 页面渲染时
-  created() {},
   data() {
     return {
       Form: {
         username: "",
         password: "",
-        // token
-        token: "",
       },
-      // 表单校验规则
-      loginFormRules: {
+
+      // 校验规则
+      registerFromRules: {
         username: [{ validator: nameRule, trigger: "blur" }],
         password: [{ validator: passwordRule, trigger: "blur" }],
       },
-    };
-  },
-  methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          const params = this.Form;
-          this.$axios
-            .post("/apiInterface/login", params)
-            .then((res) => {
+
+      // 表单提交
+      submitForm(formName) {
+        this.$refs[formName].validate(async (valid) => {
+          if (valid) {
+            const params = this.Form;
+            this.$axios.post("/apiInterface/register", params).then((res) => {
               if (res.data.code !== 200) {
                 if (document.getElementsByClassName("el-message").length > 1)
                   return;
@@ -106,7 +105,7 @@ export default {
                   message: res.data.msg,
                 });
               } else {
-                if (document.getElementsByClassName("el-messgae").length > 1)
+                if (document.getElementsByClassName("el-message").length > 1)
                   return;
                 this.$message({
                   center: true,
@@ -114,14 +113,18 @@ export default {
                   message: res.data.msg,
                 });
               }
-            })
-            .catch((err) => {
-              console.log(err);
             });
-        } else {
-          return false;
-        }
-      });
+          } else {
+            return false;
+          }
+        });
+      },
+    };
+  },
+  methods: {
+    // 返回登录页
+    returnLogin() {
+      this.$router.replace("../Pages/Login");
     },
   },
 };
@@ -131,46 +134,45 @@ export default {
 .container {
   height: 100vh;
 }
-.el-main {
+.el-header {
+  background-color: #dcdcdc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.headerLeft {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.el-header {
-  width: 100%;
-  height: 30px !important;
-  background-color: #dcdcdc;
+.imageTitle {
+  width: 50px !important;
+  height: 50px !important;
 }
 .el-footer {
-  width: 100%;
   height: 22px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #68217a;
+}
+.linkTitle {
+  margin-right: 50px;
+}
+.linkStyle {
+  color: black;
+}
+.mainWrapper {
+  height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.formContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.formWrapper h1,
-h3,
-h4 {
-  white-space: nowrap;
-}
-.containerLeft {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.loginImage {
-  width: 180px;
-  height: 180px;
 }
 .el-divider {
   height: 250px;
-  margin-left: 35px;
+}
+.contaimerLeft {
+  height: 250px;
+  margin-right: 100px;
 }
 </style>

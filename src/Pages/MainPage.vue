@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>主面板</div>
 </template>
 
 <script>
