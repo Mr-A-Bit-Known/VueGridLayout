@@ -18,9 +18,10 @@
       <el-main>
         <div class="mainWrapper">
           <div class="contaimerLeft">
-            <h2>Tips:</h2>
-            <h3>用户名可自定义(简短好记)</h3>
+            <h1>Tips:</h1>
+            <h3>用户名可自定义(必须为五位数)</h3>
             <h3>密码长度规范不限</h3>
+            <h3>手机号码必须规范格式</h3>
           </div>
           <el-divider direction="vertical"></el-divider>
           <div class="formWrapper">
@@ -49,6 +50,19 @@
                   @keyup.enter.native="submitForm('Form')"
                 ></el-input>
               </el-form-item>
+              <!-- 手机号码 -->
+              <el-form-item
+                label="手机号码"
+                prop="phoneNumber"
+                style="width: 380px"
+              >
+                <el-input
+                  placeholder="请输入手机号码"
+                  v-model="Form.phoneNumber"
+                  prefix-icon="el-icon-phone"
+                ></el-input>
+              </el-form-item>
+              <!-- 注册 -->
               <el-form-item>
                 <el-button
                   type="primary"
@@ -82,12 +96,14 @@ export default {
       Form: {
         username: "",
         password: "",
+        phoneNumber: "",
       },
 
       // 校验规则
       registerFromRules: {
         username: [{ validator: nameRule, trigger: "blur" }],
         password: [{ validator: passwordRule, trigger: "blur" }],
+        phoneNumber: [{ validator: phoneNumberRule, trigger: "blur" }],
       },
 
       // 表单提交
@@ -108,9 +124,17 @@ export default {
                 if (document.getElementsByClassName("el-message").length > 1)
                   return;
                 this.$message({
+                  duration: 1000,
                   center: true,
                   type: "success",
                   message: res.data.msg,
+                });
+                // 添加计时器
+                const timer = setTimeout(() => {
+                  this.$router.replace("../Pages/Login");
+                }, 1500);
+                this.$once("hook:beforeDestory", function () {
+                  clearTimeout(timer);
                 });
               }
             });
@@ -174,5 +198,12 @@ export default {
 .contaimerLeft {
   height: 250px;
   margin-right: 100px;
+}
+.contaimerLeft h1 {
+  margin-left: -80px;
+}
+.contaimerLeft h1,
+h3 {
+  white-space: nowrap;
 }
 </style>

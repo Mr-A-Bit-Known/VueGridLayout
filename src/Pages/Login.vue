@@ -49,6 +49,13 @@
                   >登录</el-button
                 >
               </el-form-item>
+              <!-- bottom -->
+              <el-form-item class="bottomWrapper">
+                <div class="bottomContainer">
+                  <el-link @click="register">没有账户?立即注册</el-link>
+                  <el-link @click="passwordGetBack">已有账户,忘记密码</el-link>
+                </div>
+              </el-form-item>
             </el-form>
           </div>
         </div>
@@ -90,6 +97,7 @@ export default {
     };
   },
   methods: {
+    // 登录表单提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -109,9 +117,18 @@ export default {
                 if (document.getElementsByClassName("el-messgae").length > 1)
                   return;
                 this.$message({
+                  duration: 1000,
                   center: true,
                   type: "success",
                   message: res.data.msg,
+                });
+                // 添加延时计时器
+                const timer = setTimeout(() => {
+                  this.$router.replace("../Pages/MainPage");
+                }, 1500);
+                // 清除计时器
+                this.$once("hook:beforeDestory", () => {
+                  clearTimeout(timer);
                 });
               }
             })
@@ -122,6 +139,14 @@ export default {
           return false;
         }
       });
+    },
+    // 注册
+    register() {
+      this.$router.replace("../Pages/Register");
+    },
+    // 密码找回
+    passwordGetBack() {
+      this.$router.replace("../Pages/PasswordGetBack");
     },
   },
 };
@@ -172,5 +197,13 @@ h4 {
 .el-divider {
   height: 250px;
   margin-left: 35px;
+}
+
+.bottomContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.bottomContainer {
+  line-height: 20px !important;
 }
 </style>

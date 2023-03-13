@@ -8,7 +8,7 @@ export function nameRule(rules, value, callback) {
         callback(new Error("请输入用户名"));
     }
     else if (!nameData.test(value)) {
-        callback(new Error("用户名是5位数"));
+        callback(new Error("用户名必须是5位数"));
     }
     else {
         callback();

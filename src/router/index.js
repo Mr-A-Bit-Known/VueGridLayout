@@ -4,25 +4,32 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  // mode: "history",
   routes: [
     {
       // 默认路由重定向
       path: '/',
-      redirect: "/Pages/Login",
-      component: resolve => require(['@/Pages/Login'], resolve)
+      redirect: "Pages/Login",
+      component: resolve => require(['@/Pages/Login'], resolve),
+      meta: {
+        index: 0
+      }
     },
     {
       // 登录页
       path: "/Pages/Login",
-      component: resolve => require(['@/Pages/Login'], resolve)
+      component: resolve => require(['@/Pages/Login'], resolve),
+      meta: {
+        title: " 登录页",
+        index: 1
+      }
     },
     // 主界面
     {
       path: "/Pages/MainPage",
       component: resolve => require(['@/Pages/MainPage'], resolve),
       meta: {
-        title: "主界面"
+        title: "主界面",
+        index: 2
       }
     },
     // 注册页面
@@ -30,7 +37,18 @@ export default new Router({
       path: "/Pages/Register",
       component: resolve => require(['@/Pages/Register'], resolve),
       meta: {
-        title: "登录页面"
+        title: "登录页面",
+        index: 3
+      }
+    },
+
+    // 密码找回
+    {
+      path: "/Pages/PasswordGetBack",
+      component: resolve => require(['@/Pages/PasswordGetBack'], resolve),
+      meta: {
+        title: "密码找回",
+        index: 4
       }
     },
 
