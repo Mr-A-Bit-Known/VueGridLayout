@@ -40,7 +40,7 @@ body {
 }
 .to-left-enter-active,
 .to-left-leave-active {
-  transition: all linear 1.3s;
+  transition: all linear 0.6s;
 }
 
 .to-left-enter,
@@ -49,7 +49,7 @@ body {
 }
 .to-right-enter-active,
 .to-right-leave-active {
-  transition: all linear 1s;
+  transition: all linear 0.6s;
 }
 
 .to-right-enter,

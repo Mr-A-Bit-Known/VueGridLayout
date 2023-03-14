@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "element-theme-chalk": "^2.15.13",
     "element-ui": "^2.15.9",
     "mock": "^0.1.1",
     "mockjs": "^1.1.0",

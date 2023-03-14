@@ -19,7 +19,7 @@
         <div class="mainWrapper">
           <div class="contaimerLeft">
             <h1>Tips:</h1>
-            <h3>用户名可自定义(必须为五位数)</h3>
+            <h3>用户名必须为五位数</h3>
             <h3>密码长度规范不限</h3>
             <h3>手机号码必须规范格式</h3>
           </div>

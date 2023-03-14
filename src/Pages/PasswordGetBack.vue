@@ -7,7 +7,7 @@
             class="imageTitle"
             :src="require('../images/Snobi.png')"
           ></el-image>
-          <h1>密码找回</h1>
+          <h1>用户密码找回</h1>
         </div>
         <div class="linkTitle">
           <el-link class="linkStyle" @click="returnLogin"
@@ -15,7 +15,50 @@
           >
         </div>
       </el-header>
-      <el-main>123</el-main>
+      <el-main>
+        <div class="containerWrapper">
+          <el-form :model="Form" :rules="rules" ref="Form" label-width="100px">
+            <el-form-item label="">
+              <h3>请输入已注册的用户名</h3>
+            </el-form-item>
+            <el-form-item label="用户名" prop="username">
+              <div class="inputWrapper">
+                <el-input
+                  v-model="Form.username"
+                  placeholder="请输入已注册用户名"
+                  prefix-icon="el-icon-user"
+                ></el-input>
+              </div>
+            </el-form-item>
+            <el-form-item label="新密码" prop="password">
+              <el-input
+                type="password"
+                v-model="Form.password"
+                placeholder="请输入新密码"
+                prefix-icon="el-icon-lock"
+                show-password
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="passwordpre">
+              <el-input
+                type="password"
+                v-model="Form.passwordpre"
+                placeholder="请再次输入新密码"
+                prefix-icon="el-icon-lock"
+                show-password
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                class="confirmBtn"
+                type="primary"
+                @click="confirm('Form')"
+                >确认修改</el-button
+              >
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-main>
       <el-footer><Footer></Footer></el-footer>
     </el-container>
   </div>
@@ -23,17 +66,53 @@
 
 <script>
 import Footer from "../components/footer.vue";
+import { nameRule, passwordRule } from "../javascript/vaildate";
 export default {
   components: {
     Footer,
   },
   data() {
-    return {};
+    return {
+      Form: {
+        username: "",
+        password: "",
+        // 再次输入密码
+        passwordpre: "",
+      },
+
+      // 按钮置灰
+      disabled: true,
+
+      username: "",
+      // 校验规则
+      rules: {
+        username: [{ validator: nameRule, trigger: "blur" }],
+        password: [{ validator: passwordRule, trigger: "blur" }],
+        passwordpre: [{ validator: passwordRule, trigger: "blur" }],
+      },
+    };
   },
   methods: {
     // 返回登录页
     returnLogin() {
       this.$router.replace("../Pages/Login");
+    },
+
+    // 确认修改
+    confirm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          const params = this.Form.username;
+          this.$axios
+            .post("/apiInterface/search", params)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {});
+        } else {
+          return false;
+        }
+      });
     },
   },
 };
@@ -60,6 +139,27 @@ export default {
 }
 .linkStyle {
   color: black;
+}
+.el-main {
+  display: flex;
+  height: 85vh;
+  justify-content: center;
+}
+.containerWrapper {
+  width: 580px;
+  margin-top: calc(13vh);
+}
+
+.containerWrapper >>> .el-input {
+  width: 300px;
+}
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.confirmBtn {
+  width: 300px;
 }
 .el-footer {
   width: 100%;
