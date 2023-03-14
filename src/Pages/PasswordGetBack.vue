@@ -72,6 +72,17 @@ export default {
     Footer,
   },
   data() {
+    // 判断两次密码是否输入一致
+    const validatePwd = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error("请输入密码"));
+      } else if (value != this.Form.password) {
+        callback(new Error("两次密码输入不一致"));
+      } else {
+        callback();
+      }
+    };
+
     return {
       Form: {
         username: "",
@@ -88,7 +99,10 @@ export default {
       rules: {
         username: [{ validator: nameRule, trigger: "blur" }],
         password: [{ validator: passwordRule, trigger: "blur" }],
-        passwordpre: [{ validator: passwordRule, trigger: "blur" }],
+        passwordpre: [
+          { validator: passwordRule, trigger: "blur" },
+          { validator: validatePwd, trigger: "blur" },
+        ],
       },
     };
   },
@@ -108,7 +122,9 @@ export default {
             .then((res) => {
               console.log(res);
             })
-            .catch((err) => {});
+            .catch((err) => {
+              console.log(err);
+            });
         } else {
           return false;
         }
