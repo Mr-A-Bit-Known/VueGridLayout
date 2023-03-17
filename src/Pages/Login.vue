@@ -133,7 +133,7 @@ export default {
               }
             })
             .catch((err) => {
-              console.log(err);
+              throw err;
             });
         } else {
           return false;
@@ -163,7 +163,8 @@ export default {
 }
 .el-header {
   width: 100%;
-  height: 30px !important;
+  display: flex;
+  align-items: center;
   background-color: #dcdcdc;
 }
 .el-footer {
@@ -205,5 +206,10 @@ h4 {
 }
 .bottomContainer {
   line-height: 20px !important;
+}
+.el-message_content {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
 }
 </style>

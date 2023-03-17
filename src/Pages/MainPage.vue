@@ -1,5 +1,7 @@
 <template>
-  <div>主面板</div>
+  <div class="wrapper">
+    
+  </div>
 </template>
 
 <script>
@@ -7,6 +9,7 @@ export default {
   data() {
     return {};
   },
+  methods: {},
 };
 </script>
 

@@ -7,7 +7,7 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-theme-chalk';
 import 'element-ui/lib/theme-chalk/index.css';
-import axios from 'axios';
+import axios from './javascript/axios';
 
 // 去除CSS默认样式
 import '../src/javascript/index.css';

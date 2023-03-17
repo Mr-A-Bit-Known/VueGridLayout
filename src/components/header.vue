@@ -30,5 +30,6 @@ export default {
   font-size: 16px;
   color: black;
   font-weight: bold;
+  white-space: nowrap;
 }
 </style>

@@ -29,7 +29,6 @@ export default new Router({
       component: resolve => require(['@/Pages/MainPage'], resolve),
       meta: {
         title: "主界面",
-        index: 2
       }
     },
     // 注册页面
@@ -38,7 +37,7 @@ export default new Router({
       component: resolve => require(['@/Pages/Register'], resolve),
       meta: {
         title: "登录页面",
-        index: 3
+        index: 2
       }
     },
 
@@ -48,7 +47,7 @@ export default new Router({
       component: resolve => require(['@/Pages/PasswordGetBack'], resolve),
       meta: {
         title: "密码找回",
-        index: 4
+        index: 3
       }
     },
 
