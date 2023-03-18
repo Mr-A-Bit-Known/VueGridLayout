@@ -18,8 +18,8 @@
       <el-main>
         <div class="containerWrapper">
           <el-form :model="Form" :rules="rules" ref="Form" label-width="100px">
-            <el-form-item label="">
-              <h3>请输入已注册的用户名</h3>
+            <el-form-item>
+              <h1>请输入已注册的用户名,用户名唯一性</h1>
             </el-form-item>
             <el-form-item label="用户名" prop="username">
               <div class="inputWrapper">
@@ -158,14 +158,15 @@ export default {
 }
 .el-main {
   display: flex;
-  height: 85vh;
   justify-content: center;
 }
 .containerWrapper {
   width: 580px;
   margin-top: calc(13vh);
 }
-
+.containerWrapper h1 {
+  margin-left: -100px;
+}
 .containerWrapper >>> .el-input {
   width: 300px;
 }

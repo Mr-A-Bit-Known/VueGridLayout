@@ -114,22 +114,15 @@ export default {
                   message: res.data.msg,
                 });
               } else {
-                if (document.getElementsByClassName("el-messgae").length > 1)
-                  return;
                 this.$message({
-                  duration: 1000,
                   center: true,
                   type: "success",
                   message: res.data.msg,
                 });
-                // 添加延时计时器
-                const timer = setTimeout(() => {
-                  this.$router.replace("../Pages/MainPage");
-                }, 1500);
-                // 清除计时器
-                this.$once("hook:beforeDestory", () => {
-                  clearTimeout(timer);
-                });
+                // 路由跳转
+                this.$router.replace("../Pages/MainPage");
+                // 传入token
+                localStorage.setItem("token:", res.data.data.token);
               }
             })
             .catch((err) => {

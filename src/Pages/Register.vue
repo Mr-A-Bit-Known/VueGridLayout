@@ -17,7 +17,7 @@
       </el-header>
       <el-main>
         <div class="mainWrapper">
-          <div class="contaimerLeft">
+          <div class="containerLeft">
             <h1>Tips:</h1>
             <h3>用户名必须为五位数</h3>
             <h3>密码长度规范不限</h3>
@@ -129,13 +129,8 @@ export default {
                   type: "success",
                   message: res.data.msg,
                 });
-                // 添加计时器
-                const timer = setTimeout(() => {
-                  this.$router.replace("../Pages/Login");
-                }, 1500);
-                this.$once("hook:beforeDestory", function () {
-                  clearTimeout(timer);
-                });
+                // 路由跳转
+                this.$router.replace("../Pages/Login");
               }
             });
           } else {
@@ -164,6 +159,11 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+.el-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .headerLeft {
   display: flex;
   align-items: center;
@@ -187,7 +187,6 @@ export default {
   color: black;
 }
 .mainWrapper {
-  height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,14 +194,14 @@ export default {
 .el-divider {
   height: 250px;
 }
-.contaimerLeft {
+.containerLeft {
   height: 250px;
   margin-right: 100px;
 }
-.contaimerLeft h1 {
+.containerLeft h1 {
   margin-left: -80px;
 }
-.contaimerLeft h1,
+.containerLeft h1,
 h3 {
   white-space: nowrap;
 }

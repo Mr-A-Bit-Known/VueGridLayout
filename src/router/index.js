@@ -8,8 +8,8 @@ export default new Router({
     {
       // 默认路由重定向
       path: '/',
-      redirect: "Pages/Login",
-      component: resolve => require(['@/Pages/Login'], resolve),
+      redirect: "Pages/MainPage",
+      component: resolve => require(['@/Pages/MainPage'], resolve),
       meta: {
         index: 0
       }
