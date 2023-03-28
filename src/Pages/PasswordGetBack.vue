@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @contextmenu.prevent>
     <el-container class="container">
       <el-header>
         <div class="headerLeft">

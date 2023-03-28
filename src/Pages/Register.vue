@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @contextmenu.prevent>
     <el-container class="container">
       <el-header>
         <div class="headerLeft">
@@ -113,22 +113,9 @@ export default {
             const params = this.Form;
             this.$axios.post("/apiInterface/register", params).then((res) => {
               if (res.data.code !== 200) {
-                if (document.getElementsByClassName("el-message").length > 1)
-                  return;
-                this.$message({
-                  center: true,
-                  type: "error",
-                  message: res.data.msg,
-                });
+                this.$components.messagePointer(res.data.msg, "error", 1000);
               } else {
-                if (document.getElementsByClassName("el-message").length > 1)
-                  return;
-                this.$message({
-                  duration: 1000,
-                  center: true,
-                  type: "success",
-                  message: res.data.msg,
-                });
+                this.$components.messagePointer(res.data.msg, "success", 1000);
                 // 路由跳转
                 this.$router.replace("../Pages/Login");
               }

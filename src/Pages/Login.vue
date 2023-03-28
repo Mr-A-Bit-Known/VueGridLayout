@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @contextmenu.prevent>
     <el-container class="container">
       <!-- 头部选项 -->
       <el-header><Header></Header></el-header>
@@ -106,19 +106,9 @@ export default {
             .post("/apiInterface/login", params)
             .then((res) => {
               if (res.data.code !== 200) {
-                if (document.getElementsByClassName("el-message").length > 1)
-                  return;
-                this.$message({
-                  center: true,
-                  type: "error",
-                  message: res.data.msg,
-                });
+                this.$components.messagePointer(res.data.msg, "error", 1000);
               } else {
-                this.$message({
-                  center: true,
-                  type: "success",
-                  message: res.data.msg,
-                });
+                this.$components.messagePointer(res.data.msg, "success", 1000);
                 // 路由跳转
                 this.$router.replace("../Pages/MainPage");
                 // 传入token
@@ -126,7 +116,7 @@ export default {
               }
             })
             .catch((err) => {
-              throw err;
+              this.$components.messagePointer(err, "error", 1000);
             });
         } else {
           return false;
