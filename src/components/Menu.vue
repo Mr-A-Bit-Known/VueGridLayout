@@ -1,35 +1,14 @@
 <template>
   <div class="wrapper">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      :unique-opened="true"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-    >
-      <template v-for="item in list">
-        <el-submenu v-if="item.children" :index="item.path" :key="item.id">
-          <template #title>
-            <i :class="item.icon"></i>
-            <span>{{ item.menu_name }}</span>
-          </template>
-          <el-menu-item
-            v-for="ls in item.children"
-            :key="ls.id"
-            :index="ls.path"
-          >
-            <i></i>
-            <span>{{ ls.menu_name }}</span>
-          </el-menu-item>
-        </el-submenu>
-      </template>
-    </el-menu>
+    <!-- 头部搜索栏 -->
+    <div class="searchWrapper"></div>
+    <!-- 多级菜单导航 -->
   </div>
 </template>
 
 <script>
 export default {
+  name: "Menu",
   created() {
     this.getMenuList();
   },
@@ -42,7 +21,7 @@ export default {
     // 获取菜单列表
     getMenuList() {
       this.$axios
-        .post("/apiInterface/show_list_display")
+        .post("/show_list_display")
         .then((res) => {
           this.list = res.data.data;
         })
@@ -55,6 +34,11 @@ export default {
 </script>
 
 <style scoped>
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .wrapper >>> .el-submenu__title,
 .el-menu-item,
 .el-menu {
@@ -65,10 +49,16 @@ export default {
 .wrapper >>> .el-submenu__title {
   display: flex;
   align-items: center;
+  padding: 0px 0px 0px 20px !important;
 }
 .wrapper >>> .el-menu-item {
   display: flex;
   align-items: center;
-  padding: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 50px !important;
+}
+.el-message_content {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
 }
 </style>

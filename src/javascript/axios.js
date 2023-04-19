@@ -3,6 +3,11 @@ import axios from 'axios';
 import { Loading } from 'element-ui';
 
 
+import components from '../javascript/components';
+
+// 配置请求基本路径
+axios.defaults.baseURL = "http://localhost:8080/apiInterface/v1";
+
 // 定义加载动画方法
 
 let loading;
@@ -27,7 +32,7 @@ axios.interceptors.request.use(config => {
     startLoading();
     return config;
 }, error => {
-    throw error;
+    components.messagePointer(error, "error", 1000);
 })
 
 
@@ -38,7 +43,7 @@ axios.interceptors.response.use(response => {
     return response;
 }, error => {
     endLoading();
-    throw error;
+    components.messagePointer(error, "error", 1000);
 })
 
 

@@ -1,11 +1,18 @@
 <template>
   <div class="headerWrapper">
     <div class="fontWrapper">忽如一夜春风来,千树万树梨花开...</div>
+    <div class="weatherWrapper">
+      <weather></weather>
+    </div>
   </div>
 </template>
-
-<script>
+  
+  <script>
+import weather from "../components/weather";
 export default {
+  components: {
+    weather
+  },
   created() {},
   data() {
     return {
@@ -16,8 +23,8 @@ export default {
   mounted() {}
 };
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .headerWrapper {
   height: 30px !important;
   font-size: 15px;

@@ -108,18 +108,24 @@ export default {
 
       // 表单提交
       submitForm(formName) {
-        this.$refs[formName].validate(async (valid) => {
+        this.$refs[formName].validate((valid) => {
           if (valid) {
             const params = this.Form;
-            this.$axios.post("/apiInterface/register", params).then((res) => {
-              if (res.data.code !== 200) {
-                this.$components.messagePointer(res.data.msg, "error", 1000);
-              } else {
-                this.$components.messagePointer(res.data.msg, "success", 1000);
-                // 路由跳转
-                this.$router.replace("../Pages/Login");
-              }
-            });
+            this.$axios
+              .post("/apiInterface/register", params)
+              .then(async (res) => {
+                if ((await res.data.code) !== 200) {
+                  this.$components.messagePointer(res.data.msg, "error", 1000);
+                } else {
+                  this.$components.messagePointer(
+                    res.data.msg,
+                    "success",
+                    1000
+                  );
+                  // 路由跳转
+                  this.$router.replace("../Pages/Login");
+                }
+              });
           } else {
             return false;
           }
@@ -156,6 +162,9 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.headerLeft h1 {
+  white-space: nowrap;
+}
 .imageTitle {
   width: 50px !important;
   height: 50px !important;
@@ -167,11 +176,11 @@ export default {
   justify-content: center;
   background-color: #68217a;
 }
-.linkTitle {
-  margin-right: 50px;
-}
 .linkStyle {
   color: black;
+}
+.linkStyle h1 {
+  white-space: nowrap;
 }
 .mainWrapper {
   display: flex;
@@ -191,5 +200,10 @@ export default {
 .containerLeft h1,
 h3 {
   white-space: nowrap;
+}
+.el-message_content {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
 }
 </style>

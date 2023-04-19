@@ -13,4 +13,9 @@ export default {};
   font-size: 60px;
   font-weight: bold;
 }
+.el-message_content {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
+}
 </style>

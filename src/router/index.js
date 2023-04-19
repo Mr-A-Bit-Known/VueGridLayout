@@ -1,63 +1,68 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-Vue.use(Router)
+// 提示文字通用组件
+import components from '../javascript/components';
 
-export default new Router({
+Vue.use(Router);
+
+const router = new Router({
   routes: [
     {
       // 默认路由重定向
       path: '/',
-      redirect: "Pages/MainPage",
-      component: resolve => require(['@/Pages/MainPage'], resolve),
-      meta: {
-        index: 0
-      }
+      redirect: "Pages/Login",
+      component: () => import("../Pages/Login.vue"),
     },
     {
       // 登录页
       path: "/Pages/Login",
-      component: resolve => require(['@/Pages/Login'], resolve),
-      meta: {
-        title: " 登录页",
-        index: 1
-      }
+      name: 'Login',
+      component: () => import("../Pages/Login.vue"),
     },
     // 主界面
     {
       path: "/Pages/MainPage",
-      component: resolve => require(['@/Pages/MainPage'], resolve),
+      name: 'MainPage',
+      component: () => import("../Pages/MainPage.vue"),
       meta: {
-        title: "主界面",
+        requireAuth: true
       }
     },
     // 注册页面
     {
       path: "/Pages/Register",
-      component: resolve => require(['@/Pages/Register'], resolve),
-      meta: {
-        title: "登录页面",
-        index: 2
-      }
+      name: 'Register',
+      component: () => import("../Pages/Register.vue"),
     },
 
     // 密码找回
     {
       path: "/Pages/PasswordGetBack",
-      component: resolve => require(['@/Pages/PasswordGetBack'], resolve),
-      meta: {
-        title: "密码找回",
-        index: 3
-      }
+      name: "PasswordGetBack",
+      component: () => import("../Pages/PasswordGetBack.vue"),
     },
 
     // 404
     {
       path: "*",
-      component: resolve => require(['@/Pages/PagesNotFound'], resolve),
-      meta: {
-        title: "页面404"
-      }
+      component: () => import("../Pages/PagesNotFound.vue"),
     },
   ]
 })
+
+// 路由全局守卫
+router.beforeEach((to, from, next) => {
+  // 无需token验证界面路由(登录,注册,修改密码)
+  if (to.path === "/Pages/Login" || to.path === "/Pages/Register" || to.path === "/Pages/PasswordGetBack") {
+    next();
+  }
+  next();
+})
+
+router.afterEach(() => {
+
+})
+
+export default router;
+

@@ -1,24 +1,22 @@
 <template>
   <div class="wrapper" @contextmenu.prevent>
     <el-container>
-      <el-header :style="{ height: this.headerHeight }"
-        ><Header></Header
-      ></el-header>
+      <el-header :style="{ height: this.headerHeight }">
+        <Header></Header>
+      </el-header>
       <el-container>
-        <el-aside :style="{ height: this.screenHeight }"
-          ><Menu></Menu
-        ></el-aside>
+        <el-aside :style="{ height: this.screenHeight }">
+          <Menu></Menu>
+        </el-aside>
         <el-container>
           <el-main :style="{ height: this.screenHeight }">
-            <el-button type="primary" @click="selectAll()"
-              >点击获取数据</el-button
-            >
+            <el-button type="primary" @click="selectAll()">点击获取数据</el-button>
           </el-main>
         </el-container>
       </el-container>
-      <el-footer :style="{ height: this.footerHeight }"
-        ><Footer></Footer
-      ></el-footer>
+      <el-footer :style="{ height: this.footerHeight }">
+        <Footer></Footer>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -32,7 +30,7 @@ export default {
   components: {
     Header,
     Footer,
-    Menu,
+    Menu
   },
   data() {
     return {
@@ -42,14 +40,14 @@ export default {
       footerHeight: 19,
 
       // 屏幕高度
-      screenHeight: "",
+      screenHeight: ""
     };
   },
   methods: {
     // 获取屏幕高度
-    async getViewheight() {
+    getViewheight() {
       const screenHeight =
-        (await getViewInfo.getViewHeight()) -
+        getViewInfo.getViewHeight() -
         (this.headerHeight + this.footerHeight) +
         "px";
       this.screenHeight = screenHeight;
@@ -58,22 +56,22 @@ export default {
     // 获取所有数据
     async selectAll() {
       await this.$axios
-        .post("/apiInterface/show-plugin-batch-display")
-        .then((res) => {
+        .post("/show-plugin-batch-display")
+        .then(res => {
           this.$components.messagePointer(res.data.msg, "success", 1000);
         })
-        .catch((err) => {
-          this.$components.messageBoxPointer(err, "error", 1000);
+        .catch(err => {
+          this.$components.messagePointer(err, "error", 1000);
         });
-    },
+    }
   },
   mounted() {
     this.getViewheight();
-    window.addEventListener("resize", this.getViewheight());
+    window.addEventListener("resize", this.getViewheight);
   },
   destroyed() {
-    window.removeEventListener("resize", this.getViewheight(), false);
-  },
+    window.removeEventListener("resize", this.getViewheight, false);
+  }
 };
 </script>
 
@@ -87,5 +85,10 @@ export default {
 .el-aside {
   width: 200px !important;
   background-color: #545c64;
+}
+.el-message_content {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
 }
 </style>

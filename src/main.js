@@ -2,13 +2,16 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import router from './router/index';
 // ElementUI
 import ElementUI from 'element-ui';
 import 'element-theme-chalk';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from './javascript/axios';
 import components from './javascript/components';
+
+// Vuex
+import store from '../src/store/index.js';
 
 // 去除CSS默认样式
 import '../src/javascript/index.css';
@@ -40,6 +43,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

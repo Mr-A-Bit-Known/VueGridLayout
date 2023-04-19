@@ -3,16 +3,13 @@
     <el-container class="container">
       <el-header>
         <div class="headerLeft">
-          <el-image
-            class="imageTitle"
-            :src="require('../images/Snobi.png')"
-          ></el-image>
-          <h1>用户密码找回</h1>
+          <el-image class="imageTitle" :src="require('../images/Snobi.png')"></el-image>
+          <h1>密码找回</h1>
         </div>
         <div class="linkTitle">
-          <el-link class="linkStyle" @click="returnLogin"
-            ><h1>已有账户,立即登录</h1></el-link
-          >
+          <el-link class="linkStyle" @click="returnLogin">
+            <h1>返回登录页</h1>
+          </el-link>
         </div>
       </el-header>
       <el-main>
@@ -49,17 +46,14 @@
               ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button
-                class="confirmBtn"
-                type="primary"
-                @click="confirm('Form')"
-                >确认修改</el-button
-              >
+              <el-button class="confirmBtn" type="primary" @click="confirm('Form')">确认修改</el-button>
             </el-form-item>
           </el-form>
         </div>
       </el-main>
-      <el-footer><Footer></Footer></el-footer>
+      <el-footer>
+        <Footer></Footer>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -69,7 +63,7 @@ import Footer from "../components/footer.vue";
 import { nameRule, passwordRule } from "../javascript/vaildate";
 export default {
   components: {
-    Footer,
+    Footer
   },
   data() {
     // 判断两次密码是否输入一致
@@ -88,7 +82,7 @@ export default {
         username: "",
         password: "",
         // 再次输入密码
-        passwordpre: "",
+        passwordpre: ""
       },
 
       // 按钮置灰
@@ -101,9 +95,9 @@ export default {
         password: [{ validator: passwordRule, trigger: "blur" }],
         passwordpre: [
           { validator: passwordRule, trigger: "blur" },
-          { validator: validatePwd, trigger: "blur" },
-        ],
-      },
+          { validator: validatePwd, trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
@@ -114,23 +108,23 @@ export default {
 
     // 确认修改
     confirm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           const params = this.Form.username;
           this.$axios
             .post("/apiInterface/search", params)
-            .then((res) => {
+            .then(res => {
               console.log(res);
             })
-            .catch((err) => {
-              console.log(err);
+            .catch(err => {
+              this.$components.messagePointer(err, "error", 1000);
             });
         } else {
           return false;
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -185,5 +179,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.el-message_content {
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
 }
 </style>
