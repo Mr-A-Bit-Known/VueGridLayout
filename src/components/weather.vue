@@ -182,9 +182,9 @@ export default {
 }
 .weekWeatherInfoWrapper {
   position: absolute;
-  margin-left: -510px;
+  margin-left: -660px;
   margin-top: -50px;
-  width: 500px;
+  width: 650px;
   height: 300px;
   border: 1px solid black;
   opacity: 0.7;
@@ -196,7 +196,7 @@ export default {
   justify-content: space-around;
 }
 .itemStyle {
-  width: 68px;
+  width: 88px;
   height: 300px;
   font-size: 12px;
   display: flex;
