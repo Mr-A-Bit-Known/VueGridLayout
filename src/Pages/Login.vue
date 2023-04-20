@@ -87,7 +87,9 @@ export default {
       loginFormRules: {
         username: [{ validator: nameRule, trigger: "blur" }],
         password: [{ validator: passwordRule, trigger: "blur" }]
-      }
+      },
+      // token
+      token: ""
     };
   },
   methods: {
@@ -104,6 +106,8 @@ export default {
               } else {
                 // 路由跳转
                 this.$components.messagePointer(res.data.msg, "success", 500);
+                this.token = res.data.data.token;
+                this.$store.commit("set_token", this.token);
                 this.$router.replace("/Pages/MainPage").catch(err => {
                   throw err;
                 });

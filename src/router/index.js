@@ -26,7 +26,8 @@ const router = new Router({
       name: 'MainPage',
       component: () => import("../Pages/MainPage.vue"),
       meta: {
-        requireAuth: true
+        requireAuth: true,
+        title: "主页"
       }
     },
     // 注册页面
@@ -57,7 +58,17 @@ router.beforeEach((to, from, next) => {
   if (to.path === "/Pages/Login" || to.path === "/Pages/Register" || to.path === "/Pages/PasswordGetBack") {
     next();
   }
-  next();
+  if (to.meta.requireAuth) {
+    if (localStorage.getItem('token')) {
+      next();
+    } else {
+      components.messagePointer("无效Token,返回登录页...", "error", 1000);
+      // 无效token,返回登录页
+      router.push({ path: "/Pages/Login" });
+    }
+  } else {
+    next();
+  }
 })
 
 router.afterEach(() => {

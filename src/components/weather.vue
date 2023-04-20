@@ -35,7 +35,7 @@
                   alt="天气图片"
                 />
               </div>
-              <div>{{ i.win[0] }}</div>
+              <div>{{ i.win[0] }}/{{ i.win[1] }}</div>
               <div>{{ i.air_level }}</div>
             </div>
           </div>

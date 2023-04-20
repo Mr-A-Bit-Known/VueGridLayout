@@ -12,12 +12,25 @@ export default {
     if (document.getElementById("Loading")) {
       document.getElementById("Loading").remove();
     }
+    // 页面创建,初始化localStorage内容
+    this.setLocalStorageDefaultValue();
   },
   name: "App",
   data() {
-    return {};
+    return {
+      loginInfo: "{}",
+      token: "{}"
+    };
   },
-  methods: {}
+  methods: {
+    // 页面初始化,localStorage设置默认值
+    setLocalStorageDefaultValue() {
+      // 登录信息
+      this.$store.commit("set_defaultValue", this.loginInfo);
+      // token
+      this.$store.commit("set_token", this.token);
+    }
+  }
 };
 </script>
 

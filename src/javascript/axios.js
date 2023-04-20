@@ -30,6 +30,9 @@ function endLoading() {
 // 请求拦截
 axios.interceptors.request.use(config => {
     startLoading();
+    if (localStorage.getItem('token')) {  // 如本地已存储token
+        config.headers['X-Access-Token'] = localStorage.getItem('token');
+    }
     return config;
 }, error => {
     components.messagePointer(error, "error", 1000);
