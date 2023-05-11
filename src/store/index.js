@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state() {
         return {
-            token: ""
+            token: "",
         }
     },
     getters: {},
@@ -23,14 +23,8 @@ const store = new Vuex.Store({
         },
         // 删除token
         del_token(state) {
-            state.token = "";
             localStorage.removeItem('token');
         },
-        // 设置localStorage默认值
-        set_defaultValue(state, loginInfo) {
-            state.loginInfo = loginInfo;
-            localStorage.loginInfo = loginInfo;
-        }
     },
     // 异步操作
     actions: {

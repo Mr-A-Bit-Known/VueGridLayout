@@ -89,7 +89,9 @@ export default {
         password: [{ validator: passwordRule, trigger: "blur" }]
       },
       // token
-      token: ""
+      token: "",
+      // 登录信息
+      loginInfo: ""
     };
   },
   methods: {

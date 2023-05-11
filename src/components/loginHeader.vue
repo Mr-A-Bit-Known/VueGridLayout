@@ -2,16 +2,16 @@
   <div class="headerWrapper">
     <div class="fontWrapper">忽如一夜春风来,千树万树梨花开...</div>
     <div class="weatherWrapper">
-      <weather></weather>
+      <!-- <weather></weather> -->
     </div>
   </div>
 </template>
   
   <script>
-import weather from "../components/weather";
+// import weather from "../components/weather";
 export default {
   components: {
-    weather
+    // weather
   },
   created() {},
   data() {
