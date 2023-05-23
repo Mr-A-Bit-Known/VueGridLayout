@@ -5,12 +5,20 @@
         <Header></Header>
       </el-header>
       <el-container>
-        <el-aside :style="{ height: this.screenHeight }">
-          <Menu></Menu>
+        <el-aside width="200px" :style="{ height: this.screenHeight }">
+          <el-menu
+            router
+            :unique-opened="true"
+            background-color="#545c64"
+            :collapse-transition="false"
+            text-color="#fff"
+          >
+            <Menu :list="list"></Menu>
+          </el-menu>
         </el-aside>
         <el-container>
           <el-main :style="{ height: this.screenHeight }">
-            <el-button type="primary" @click="selectAll()">点击获取数据</el-button>
+            <Content></Content>
           </el-main>
         </el-container>
       </el-container>
@@ -25,12 +33,17 @@
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Menu from "../components/Menu.vue";
+import Content from "../components/content.vue";
 import getViewInfo from "../javascript/viewInfos";
 export default {
   components: {
     Header,
     Footer,
-    Menu
+    Menu,
+    Content
+  },
+  created() {
+    this.getMenuList();
   },
   data() {
     return {
@@ -40,7 +53,12 @@ export default {
       footerHeight: 19,
 
       // 屏幕高度
-      screenHeight: ""
+      screenHeight: "",
+      // 菜单是否折叠(默认不折叠)
+      isCollaspe: false,
+
+      // 导航菜单数据
+      list: []
     };
   },
   methods: {
@@ -53,15 +71,15 @@ export default {
       this.screenHeight = screenHeight;
     },
 
-    // 获取所有数据
-    async selectAll() {
-      await this.$axios
-        .post("/show-plugin-batch-display")
+    // 获取菜单列表
+    getMenuList() {
+      this.$axios
+        .post("/show_list_display")
         .then(res => {
-          this.$components.messagePointer(res.data.msg, "success", 1000);
+          this.list = res.data.data;
         })
         .catch(err => {
-          this.$components.messagePointer(err, "error", 1000);
+          this.$pointerList.messagePointer(err, "error", 1000);
         });
     }
   },
@@ -76,6 +94,10 @@ export default {
 </script>
 
 <style scoped>
+.el-header {
+  background-color: #545c64;
+  width: 100%;
+}
 .el-footer {
   display: flex;
   justify-content: center;
@@ -85,10 +107,25 @@ export default {
 .el-aside {
   width: 200px !important;
   background-color: #545c64;
+  overflow: hidden;
+  transition: width 0.25s;
+  -webkit-transition: width 0.25s;
+  -moz-transition: width 0.25s;
+  -webkit-transition: width 0.25s;
+  -o-transition: width 0.25s;
 }
 .el-message_content {
   width: auto !important;
   height: auto !important;
   background: none !important;
+}
+.el-menu {
+  border-right: 0;
+}
+.el-menu /deep/ .li .el-menu-item {
+  padding-left: 14px;
+}
+.el-menu /deep/ .el-menu-item-group__title {
+  padding: 0px 0px 0px 0px !important;
 }
 </style>

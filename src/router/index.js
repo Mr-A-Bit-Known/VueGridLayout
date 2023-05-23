@@ -28,7 +28,27 @@ const router = new Router({
       meta: {
         requireAuth: true,
         title: "主页"
-      }
+      },
+      children: [
+        // 主面板
+        {
+          path: "/Pages/MenuComponents/homePage",
+          name: "HomePage",
+          component: () => import("../MenuComponents/homePage.vue"),
+        },
+        // 问题管理
+        {
+          path: "/Pages/MenuComponents/QuestionManagement",
+          name: "QuestionManagement",
+          component: () => import("../MenuComponents/questionManagement.vue")
+        },
+        // 在制品报表
+        {
+          path: "/Pages/MenuComponents/WipReport",
+          name: "WipReport",
+          component: () => import("../MenuComponents/wipReport.vue")
+        }
+      ]
     },
     // 注册页面
     {
@@ -43,7 +63,6 @@ const router = new Router({
       name: "PasswordGetBack",
       component: () => import("../Pages/PasswordGetBack.vue"),
     },
-
     // 404
     {
       path: "*",

@@ -1,60 +1,54 @@
 <template>
   <div class="wrapper">
-    <!-- 头部搜索栏 -->
-    <div class="searchWrapper"></div>
-    <!-- 多级菜单导航 -->
+    <template v-for="item in list">
+      <!-- 标题 -->
+      <template v-if="item.children">
+        <el-submenu :key="item.id" :index="item.path?item.path:Math.random()">
+          <template slot="title">
+            <i :class="item.icon"></i>
+            <span>{{ item.menu_name }}</span>
+          </template>
+          <el-menu-item-group>
+            <Menu :list="item.children"></Menu>
+          </el-menu-item-group>
+        </el-submenu>
+      </template>
+      <!-- 选项 -->
+      <template v-else>
+        <el-menu-item :index="`/Pages${item.path}`" :key="item.id">
+          <i :class="item.icon"></i>
+          <span>{{ item.menu_name }}</span>
+        </el-menu-item>
+      </template>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
   name: "Menu",
-  created() {
-    this.getMenuList();
+  // 导航菜单选项(父组件传子组件)
+  props: {
+    // 导航菜单数据
+    list: Array
   },
   data() {
-    return {
-      list: "",
-    };
+    return {};
   },
   methods: {
-    // 获取菜单列表
-    getMenuList() {
-      this.$axios
-        .post("/show_list_display")
-        .then((res) => {
-          this.list = res.data.data;
-        })
-        .catch((err) => {
-          this.$pointerList.messagePointer(err, "error", 1000);
-        });
-    },
-  },
+    // 菜单是否折叠
+  }
 };
 </script>
 
 <style scoped>
-.searchWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.is-active {
+  background: #1e78bf;
+  color: #fff !important;
 }
-.wrapper >>> .el-submenu__title,
-.el-menu-item,
-.el-menu {
-  width: 200px !important;
-  font-size: 12px !important;
-  height: 40px !important;
-}
-.wrapper >>> .el-submenu__title {
-  display: flex;
-  align-items: center;
-  padding: 0px 0px 0px 20px !important;
-}
-.wrapper >>> .el-menu-item {
-  display: flex;
-  align-items: center;
-  padding: 0px 0px 0px 50px !important;
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 .el-message_content {
   width: auto !important;

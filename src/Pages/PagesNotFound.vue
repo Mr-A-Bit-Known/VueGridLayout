@@ -15,7 +15,7 @@ export default {
   methods: {
     // 返回首页
     backToLogin() {
-      this.$router.replace("../Pages/Login");
+      this.$router.replace("/Pages/Login");
     }
   }
 };
