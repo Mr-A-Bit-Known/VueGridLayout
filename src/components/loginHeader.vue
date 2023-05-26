@@ -1,14 +1,11 @@
 <template>
   <div class="headerWrapper">
     <div class="fontWrapper">忽如一夜春风来,千树万树梨花开...</div>
-    <div class="weatherWrapper">
-      <!-- <weather></weather> -->
-    </div>
+    <div class="weatherWrapper"></div>
   </div>
 </template>
   
   <script>
-// import weather from "../components/weather";
 export default {
   components: {
     // weather

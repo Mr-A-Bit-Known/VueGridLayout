@@ -6,15 +6,7 @@
       </el-header>
       <el-container>
         <el-aside width="200px" :style="{ height: this.screenHeight }">
-          <el-menu
-            router
-            :unique-opened="true"
-            background-color="#545c64"
-            :collapse-transition="false"
-            text-color="#fff"
-          >
-            <Menu :list="list"></Menu>
-          </el-menu>
+          <Menu :list="list"></Menu>
         </el-aside>
         <el-container>
           <el-main :style="{ height: this.screenHeight }">
@@ -118,14 +110,5 @@ export default {
   width: auto !important;
   height: auto !important;
   background: none !important;
-}
-.el-menu {
-  border-right: 0;
-}
-.el-menu /deep/ .li .el-menu-item {
-  padding-left: 14px;
-}
-.el-menu /deep/ .el-menu-item-group__title {
-  padding: 0px 0px 0px 0px !important;
 }
 </style>

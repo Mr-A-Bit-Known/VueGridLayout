@@ -1,16 +1,18 @@
 <template>
   <div class="wrapper">
     <!-- 顶部内容 -->
-    <div class="headerWrapper"></div>
-    <!-- 内容 -->
-    <div class="content">
-      <router-view></router-view>
+    <div class="headerWrapper">
+      <Tabs></Tabs>
     </div>
   </div>
 </template>
 
 <script>
+import Tabs from "../components/tabs";
 export default {
+  components: {
+    Tabs
+  },
   data() {
     return {};
   }
