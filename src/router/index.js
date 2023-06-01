@@ -35,58 +35,58 @@ const router = new VueRouter({
     {
       // 登录页
       path: "/Pages/Login",
-      name: 'Login',
+      name: '登录',
       component: () => import("../Pages/Login.vue"),
     },
-    // 主界面
+    // 常用菜单
     {
       path: "/Pages/MainPage",
-      name: 'MainPage',
+      name: '常用菜单',
       component: () => import("../Pages/MainPage.vue"),
       children: [
         // 主面板
         {
-          path: "/Pages/MenuComponents/homePage",
+          path: "/Pages/MainPage/MenuComponents/homePage",
           name: "HomePage",
           component: () => import("../MenuComponents/homePage.vue"),
           meta: {
-            title: "主面板"
-          }
+            name: "HomePage",
+            keepAlive: true,
+            title: "主页"
+          },
+
         },
         // 问题管理
         {
-          path: "/Pages/MenuComponents/QuestionManagement",
+          path: "/Pages/MainPage/MenuComponents/QuestionManagement",
           name: "QuestionManagement",
           component: () => import("../MenuComponents/questionManagement.vue"),
           meta: {
+            name: "QuestionManagement",
+            keepAlive: true,
             title: "问题管理"
           }
         },
-        // 在制品报表
+        // 报表看板模块
         {
-          path: "/Pages/MenuComponents/WipReport",
+          path: "/Pages/reportPanel/MenuComponents/wipReport",
           name: "WipReport",
           component: () => import("../MenuComponents/wipReport.vue"),
           meta: {
+            name: "WipReport",
+            keepAlive: true,
             title: "在制品报表"
           }
         },
-        // 系统管理
+        // 系统管理模块
         {
-          path: "/Pages/MenuComponents/SystemModule",
-          name: "SystemModule",
-          component: () => import("../MenuComponents/systemModule.vue"),
-          meta: {
-            title: "系统管理"
-          }
-        },
-        // 数据字典
-        {
-          path: "/Pages/MenuComponents/DataDictionary",
+          path: "/Pages/systemSetting/MenuComponent/dataDictionary",
           name: "DataDictionary",
           component: () => import("../MenuComponents/dataDictionary.vue"),
           meta: {
-            title: "数据字典"
+            name: "DataDictionary",
+            keepAlive: true,
+            title: "数据字典维护"
           }
         }
       ]
@@ -132,7 +132,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach(() => {
+router.afterEach((to, from, next) => {
 
 })
 

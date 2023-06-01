@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// 天气接口
-
-
 Vue.use(Vuex);
 
 // 定义Vuex状态管理
@@ -12,15 +9,15 @@ const store = new Vuex.Store({
         return {
             token: "",
 
-            // 存储标签页数组
-            tableList: []
+            // 标签页数组
+            tableList: [],
         }
     },
     getters: {
         // 获取tabList
         getTabs: (state) => {
-            return state.tableList
-        }
+            return state.tableList;
+        },
     },
     // 操作
     mutations: {
@@ -34,21 +31,12 @@ const store = new Vuex.Store({
             localStorage.removeItem('token');
         },
 
-
-        // 添加标签页
-        add_tabs(state, tab) {
-            // 如果存在tab，则不添加新的tabs
-            if (state.tableList.some(item => item.path === tab.path)) return
+        // 添加tabs,如存在则不添加
+        add_active_tabs(state, tab) {
+            // 存在tab则不添加
+            if (state.tableList.some(item => item.path === tab.path)) return;
             state.tableList.push(tab);
         },
-        // 设置当前选中的tab
-        set_active_index(state, index) {
-            this.state.activeTab = index;
-        },
-        // 登录失败，或者退出登录，清空标签页
-        clearTabs() {
-            this.state.tableList.length = 0;
-        }
     },
     // 异步操作
     actions: {

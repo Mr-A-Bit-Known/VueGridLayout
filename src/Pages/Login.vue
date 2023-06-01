@@ -110,9 +110,11 @@ export default {
                 this.$components.messagePointer(res.data.msg, "success", 500);
                 this.token = res.data.data.token;
                 this.$store.commit("set_token", this.token);
-                this.$router.replace("/Pages/MainPage").catch(err => {
-                  throw err;
-                });
+                this.$router
+                  .replace("/Pages/MainPage/MenuComponents/homePage")
+                  .catch(err => {
+                    throw err;
+                  });
               }
             })
             .catch(err => {

@@ -55,6 +55,9 @@ export default {
   width: 22px;
   height: 22px;
 }
+.el-dropdown {
+  color: #fff;
+}
 .el-dropdown-link {
   cursor: pointer;
   margin-left: 10px;

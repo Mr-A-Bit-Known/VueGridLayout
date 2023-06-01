@@ -12,7 +12,6 @@ export default {
 
 <style scoped>
 .wrapper {
-  height: 100vh;
   background-color: aqua;
 }
 </style>
