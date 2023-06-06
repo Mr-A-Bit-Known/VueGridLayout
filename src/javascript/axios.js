@@ -10,26 +10,32 @@ axios.defaults.baseURL = "http://localhost:8080/apiInterface/v1";
 
 // 定义加载动画方法
 
-let loading;
-function startLoading() {
-    loading = Loading.service({
-        lock: true,
-        text: "稍等片刻...",
-        background: 'rgba(0,0,0,0,7)',
-    })
-}
+// 设置请求超时
+const service = axios.create({
+    baseURL: axios.defaults.baseURL,
+    timeout: 30000
+})
+
+// let loading;
+// function startLoading() {
+//     loading = Loading.service({
+//         lock: true,
+//         text: "稍等片刻...",
+//         background: 'rgba(0,0,0,0,7)',
+//     })
+// }
 
 
-function endLoading() {
-    if (loading != undefined) {
-        loading.close();
-    }
-}
+// function endLoading() {
+//     if (loading != undefined) {
+//         loading.close();
+//     }
+// }
 
 
 // 请求拦截
-axios.interceptors.request.use(config => {
-    startLoading();
+service.interceptors.request.use(config => {
+    // startLoading();
     if (localStorage.getItem('token')) {  // 如本地已存储token
         config.headers['X-Access-Token'] = localStorage.getItem('token');
     }
@@ -41,11 +47,11 @@ axios.interceptors.request.use(config => {
 
 // 响应拦截
 
-axios.interceptors.response.use(response => {
-    endLoading();
+service.interceptors.response.use(response => {
+    // endLoading();
     return response;
 }, error => {
-    endLoading();
+    // endLoading();
     components.messagePointer(error, "error", 1000);
 })
 

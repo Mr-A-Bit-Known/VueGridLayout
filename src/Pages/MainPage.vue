@@ -16,7 +16,7 @@
         </el-aside>
         <el-container>
           <el-main :style="{ height: this.screenHeight }">
-            <Content></Content>
+            <Tabs></Tabs>
           </el-main>
         </el-container>
       </el-container>
@@ -32,11 +32,13 @@ import Footer from "../components/footer";
 import Menu from "../components/Menu.vue";
 import Content from "../components/content.vue";
 import getViewInfo from "../javascript/viewInfos";
+import Tabs from "../components/tabs";
 export default {
   components: {
     Footer,
     Menu,
-    Content
+    Content,
+    Tabs
   },
   created() {
     this.getTableList();

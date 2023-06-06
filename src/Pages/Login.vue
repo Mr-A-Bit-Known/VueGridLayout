@@ -107,7 +107,7 @@ export default {
                 this.$components.messagePointer(res.data.msg, "error", 1000);
               } else {
                 // 路由跳转
-                this.$components.messagePointer(res.data.msg, "success", 500);
+                this.$components.messagePointer(res.data.msg, "success", 1000);
                 this.token = res.data.data.token;
                 this.$store.commit("set_token", this.token);
                 this.$router

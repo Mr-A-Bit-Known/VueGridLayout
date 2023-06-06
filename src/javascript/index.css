@@ -104,3 +104,11 @@ select {
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
+.el-table .warning-row td {
+    background: #fe4d4f !important;
+}
+
+.el-table .success-row td {
+    background: #177ddc !important;
+}

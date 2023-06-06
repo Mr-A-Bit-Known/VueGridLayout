@@ -58,9 +58,10 @@ export default {
       // 重新设置当前的选项卡
       this.activeTab = active;
       this.$store.state.tableList = tabs.filter(tab => tab.path !== target);
+      // 移除标签,切换路由
       this.$router.push({ path: active });
     },
-    // 防止刷新
+    // 防止刷新,数据丢失
     beforeRefresh() {
       window.addEventListener("beforeunload", () => {
         sessionStorage.setItem("tabsView", JSON.stringify(this.tableList));
@@ -94,4 +95,8 @@ export default {
 </script>
 
 <style scoped>
+.el-tabs .el-tabs__content {
+  max-height: 100px;
+  overflow: auto;
+}
 </style>
