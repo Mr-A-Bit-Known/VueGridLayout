@@ -8,6 +8,7 @@
         :name="item.path"
       >{{ item.content }}</el-tab-pane>
     </el-tabs>
+    <!-- 路由渲染 -->
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
