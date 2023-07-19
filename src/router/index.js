@@ -67,6 +67,17 @@ const router = new VueRouter({
             title: "问题管理"
           }
         },
+        // 日志查询
+        {
+          path: "/Pages/MainPage/MenuComponents/OperationLogs",
+          name: "OperationLogs",
+          component: () => import("../MenuComponents/operationLogs.vue"),
+          meta: {
+            name: "OperationLogs",
+            keepAlive: true,
+            title: "日志查询"
+          }
+        },
         // 报表看板模块
         {
           path: "/Pages/reportPanel/MenuComponents/wipReport",
@@ -87,6 +98,17 @@ const router = new VueRouter({
             name: "DataDictionary",
             keepAlive: true,
             title: "数据字典维护"
+          }
+        },
+        // 用户管理
+        {
+          path: "/Pages/systemSetting/MenuComponent/userManagement",
+          name: "UserManagement",
+          component: () => import("../MenuComponents/userManagement.vue"),
+          meta: {
+            name: "UserManagement",
+            keepAlive: true,
+            title: "用户管理"
           }
         }
       ]

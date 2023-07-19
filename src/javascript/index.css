@@ -112,3 +112,7 @@ select {
 .el-table .success-row td {
     background: #177ddc !important;
 }
+
+.el-table {
+    color: #000;
+}
