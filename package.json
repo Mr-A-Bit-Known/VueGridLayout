@@ -13,13 +13,15 @@
     "axios": "^0.27.2",
     "element-theme-chalk": "^2.15.13",
     "element-ui": "^2.15.9",
+    "file-saver": "^2.0.5",
     "mock": "^0.1.1",
     "mockjs": "^1.1.0",
     "moment": "^2.29.4",
     "vue": "^2.5.2",
     "vue-baidu-map": "^0.21.22",
     "vue-router": "^3.0.1",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

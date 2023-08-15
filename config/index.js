@@ -22,7 +22,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         changeOrign: true,
-        target: 'http://localhost:8848',
+        target: 'http://172.20.19.48:8848',
         pathRewrite: {
           '^/api': '/api' //路径重写
         }
@@ -33,7 +33,7 @@ module.exports = {
      */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'cheap-modulel-source-map',
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help

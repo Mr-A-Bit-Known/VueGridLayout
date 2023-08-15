@@ -16,12 +16,21 @@ const components = {
             // 文字居中
             center: true,
             // 是否可以关闭
-            // showClose: true,
+            showClose: true,
         })
     },
-    messageBoxPointer() {
+    messageBoxPointer(message, type, duration) {
         MessageBox({
-
+            // 提示文字
+            message: message,
+            // 提示类型
+            type: type,
+            // 持续时间
+            duration: duration,
+            // 文字居中,
+            center: true,
+            // 是否可以关闭
+            showClose: true
         })
     },
 

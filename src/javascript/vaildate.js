@@ -49,11 +49,11 @@ export function phoneNumberRule(rules, value, callback) {
 
 // 忘记密码密码校验规则
 export function passwordGetBack(rules, value, callback) {
-    // let passwordData = /^\S*(?=\S{6,12})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
+    let passwordData = /^\S*(?=\S{6,12})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
     if (!value) {
         callback(new Error("请输入密码"));
-        // } else if (!passwordData.test(value)) {
-        //     callback(new Error("6-12位密码,需要包含大小写字母,数字以及特殊字符"));
+    } else if (!passwordData.test(value)) {
+        callback(new Error("6-12位密码,需要包含大小写字母,数字以及特殊字符"));
     } else {
         callback();
     }
