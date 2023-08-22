@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <el-tabs closable v-model="activeTab" @tab-click="clickTab" @tab-remove="removeTab">
+    <el-tabs closable v-model="activeTab" type="card" @tab-click="clickTab" @tab-remove="removeTab">
       <el-tab-pane
         v-for="item in tableList"
         :key="item.path"

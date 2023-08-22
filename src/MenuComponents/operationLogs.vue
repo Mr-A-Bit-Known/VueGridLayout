@@ -9,8 +9,14 @@
             <i class="el-icon-refresh el-icon--left"></i>刷新
           </el-button>
           <!-- 高级查询 -->
-          <el-button class="advancedStyle" type="primary" width="100" size="mini">
-            <i class="el-icon-search el-icon--left" @click="advanced_query()"></i>高级查询
+          <el-button
+            class="advancedStyle"
+            type="primary"
+            width="100"
+            @click="advanced_query()"
+            size="mini"
+          >
+            <i class="el-icon-search el-icon--left"></i>高级查询
           </el-button>
           <!-- 更多操作 -->
           <el-button type="primary" width="100" size="mini">
@@ -26,6 +32,7 @@
           :data="this.tableData"
           :row-style="{height: '0'}"
           :cell-style="{padding: '3px'}"
+          id="exportExcel"
         >
           <!-- 多选框 -->
           <el-table-column type="selection" width="55" fixed align="center"></el-table-column>
@@ -85,12 +92,32 @@
           ></el-pagination>
         </div>
       </el-footer>
+      <!-- dialog对话弹框 -->
+      <ms-dialog
+        ref="msDialog"
+        :visible.sync="dialogVisible"
+        :title="title"
+        @handle="handleConfirm"
+      >
+        <div class="dialogContentWrapper">
+          <el-form :model="advanceQueryForm">
+            <el-form-item label="表名">
+              <el-input size="mini" v-model="this.FormData" placeholder></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+      </ms-dialog>
     </el-container>
   </div>
 </template>
   
 <script>
+// 引入dialog自定义组件
+import MsDialog from "../components/dialog.vue";
 export default {
+  components: {
+    MsDialog
+  },
   created() {
     // 查询全部表名
     this.getSheetsName();
@@ -123,7 +150,15 @@ export default {
       currentPage: 1,
 
       // 每页显示总数(默认50条)
-      pageSize: 25
+      pageSize: 25,
+
+      // 对话框
+      dialogVisible: false,
+      title: "高级查询",
+
+      // advanceQueryForm
+      advanceQueryForm: {},
+      FormData: ""
     };
   },
   methods: {
@@ -138,12 +173,6 @@ export default {
         })
         .then(res => {
           this.$components.messagePointer(res.data.msg, "success", 1000);
-          const arr = [];
-          const obj = res.data.data;
-          obj.forEach(el => {
-            arr.push(el);
-            this.data = arr;
-          });
         })
         .catch(err => {
           this.$components.messagePointer(err, "error", 1000);
@@ -191,8 +220,9 @@ export default {
     },
     // 高级查询
     advanced_query() {
-      console.log(this.$components.messageBoxPointer);
-    }
+      this.$refs.msDialog.dialogVisible = true;
+    },
+    handleConfirm() {}
   },
   computed: {}
 };
@@ -231,5 +261,9 @@ export default {
   align-items: center;
   justify-content: center;
   width: 80px;
+}
+.dialogContentWrapper {
+  display: flex;
+  flex-direction: column;
 }
 </style>

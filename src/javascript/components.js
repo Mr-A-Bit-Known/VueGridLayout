@@ -19,27 +19,27 @@ const components = {
             showClose: true,
         })
     },
-    messageBoxPointer(message, type, duration) {
-        MessageBox({
-            // 提示文字
-            message: message,
-            // 提示类型
-            type: type,
-            // 持续时间
-            duration: duration,
-            // 文字居中,
-            center: true,
-            // 是否可以关闭
-            showClose: true
-        })
-    },
 
-    notificationPointer() {
-        Notification({
+
+    /**
+     *  弹窗
+     */
+
+    // 确认弹窗
+    messageBoxConfirm(text = text ? `${text}` : "默认内容", title = title ? `${title}` : "默认标题", iconClass = iconClass ? `${iconClass}` : `ms-message-box`) {
+        return MessageBox.confirm(text, title, {
+            // 启用HTML文本
+            dangerouslyUseHTMLString: true,
+            // 是否居中
+            center: false,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(() => {
+
+        }).catch(() => {
 
         })
     }
-
 }
 
 export default components;
